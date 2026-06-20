@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Şallar | Sıla Sarıoğlu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="category-pages.css">
+</head>
+<body>
+<nav class="site-nav">
+  <a class="brand" href="index.html">Sıla Sarıoğlu</a>
+  <div class="nav-links">
+    <div class="nav-link-wrap">
+      <button class="nav-link">Şallar <span class="chev">▾</span></button>
+      <div class="mega">
+        <a href="sallar.html#a-plus">A++ Kalite Şallar</a>
+        <a href="sallar.html#pamuk">%100 Pamuklu Şallar</a>
+        <a href="sallar.html#muadil">Muadil Şallar</a>
+      </div>
+    </div>
+    <div class="nav-link-wrap">
+      <button class="nav-link">Giyim <span class="chev">▾</span></button>
+      <div class="mega">
+        <span class="mega-sub">Kategoriler</span>
+        <a href="giyim.html#ust">Üst Giyim</a>
+        <a href="giyim.html#alt">Alt Giyim</a>
+        <a href="giyim.html#iclik">İçlik</a>
+        <a href="giyim.html#takim">Takım</a>
+        <a href="giyim.html#elbise">Elbise</a>
+      </div>
+    </div>
+    <a class="nav-link" href="indirim.html">İndirim</a>
+    <a class="nav-link" href="index.html#hikaye">Hikayemiz</a>
+  </div>
+  <button class="hamburger" id="menu-open" aria-label="Menü"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" id="menu-close" aria-label="Kapat">×</button>
+  <div class="mobile-section"><span>Şallar</span><a href="#a-plus">A++ Kalite Şallar</a><a href="#pamuk">%100 Pamuklu Şallar</a><a href="#muadil">Muadil Şallar</a></div>
+  <div class="mobile-section"><span>Giyim</span><a href="giyim.html#ust">Üst Giyim</a><a href="giyim.html#takim">Takım</a><a href="giyim.html#elbise">Elbise</a></div>
+  <div class="mobile-section"><a href="indirim.html">İndirim</a><a href="index.html">Ana Sayfa</a></div>
+</div>
+
+<main>
+  <section class="page-hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Şal Koleksiyonu</span>
+      <h1>Dokunun sessiz ama güçlü hali.</h1>
+      <p class="lead">A++ kalite yüzeylerden pamuklu günlük seçeneklere kadar şal kategorilerini ayrı bir mağaza sayfası gibi kurguladık. Her blokta referans görsel, kategori hissi ve ürün yönlendirmesi var.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#kategoriler">Kategorileri Gör</a>
+        <a class="btn ghost" href="index.html">Ana Sayfaya Dön</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1600&auto=format&fit=crop" alt="Tesettür şal referans görseli">
+    </div>
+  </section>
+
+  <section class="section" id="kategoriler">
+    <div class="section-head">
+      <h2 class="section-title">Şal kategorileri</h2>
+      <p class="section-copy">Boş kategori sayfası yerine her kategori kendi görsel diliyle ayrıldı. Ürünler gerçek katalog geldiğinde aynı kartlara bağlanabilir.</p>
+    </div>
+    <div class="category-grid">
+      <a class="visual-card" id="a-plus" href="#urunler">
+        <img src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1000&auto=format&fit=crop" alt="A++ kalite tesettür şal">
+        <span class="tag">A++ Kalite</span>
+        <div class="visual-card-body"><h2>Tok duruşlu şallar</h2><p>Özel günlerde net form, sade kombinlerde güçlü yüzey.</p></div>
+      </a>
+      <a class="visual-card" id="pamuk" href="#urunler">
+        <img src="https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1000&auto=format&fit=crop" alt="Pamuklu tesettür şal">
+        <span class="tag">%100 Pamuk</span>
+        <div class="visual-card-body"><h2>Nefes alan pamuk</h2><p>Gün boyu hafiflik ve tenle uyumlu yumuşak doku.</p></div>
+      </a>
+      <a class="visual-card" id="muadil" href="#urunler">
+        <img src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1000&auto=format&fit=crop" alt="Muadil tesettür şal">
+        <span class="tag">Muadil</span>
+        <div class="visual-card-body"><h2>Logo hissi</h2><p>Günlük kullanım için daha erişilebilir, şık alternatifler.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="reference-strip">
+    <figure><img src="https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1400&auto=format&fit=crop" alt="Tesettür şal kombin referansı"></figure>
+    <div class="reference-note">
+      <span class="eyebrow">Referans Görsel</span>
+      <h2>Renk, yüzey ve duruş hissi burada okunur.</h2>
+      <p>Bu görsel alanı gerçek ürün çekimleri gelene kadar kategori atmosferini boş bırakmamak için kullanıldı.</p>
+    </div>
+  </section>
+
+  <section class="section" id="urunler">
+    <div class="section-head">
+      <h2 class="section-title">Öne çıkan şallar</h2>
+      <p class="section-copy">Temsili ürün kartları, gerçek ürün fotoğrafları ve fiyatları geldiğinde birebir değiştirilecek şekilde hazırlandı.</p>
+    </div>
+    <div class="product-grid">
+      <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=800&auto=format&fit=crop" alt="Na'i DD Şal"></div><div class="product-meta"><h3>Na'i DD Şal<span class="variant">Vizon</span></h3><div class="price">₺999,90<span class="old">₺1.200,00</span></div></div></article>
+      <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=800&auto=format&fit=crop" alt="Pamuk Soft Şal"></div><div class="product-meta"><h3>Pamuk Soft Şal<span class="variant">Taş</span></h3><div class="price">₺849,90</div></div></article>
+      <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=800&auto=format&fit=crop" alt="Logo Muadil Şal"></div><div class="product-meta"><h3>Logo Muadil Şal<span class="variant">Bordo</span></h3><div class="price">₺749,90</div></div></article>
+      <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=800&auto=format&fit=crop" alt="A++ Saten Şal"></div><div class="product-meta"><h3>A++ Saten Şal<span class="variant">Siyah</span></h3><div class="price">₺1.150,00</div></div></article>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><span>© 2026 Sıla Sarıoğlu</span><span>Şal kategori prototipi</span></footer>
+<script src="category-pages.js"></script>
+</body>
+</html>
