@@ -1,0 +1,2 @@
+export function filterDrawerTemplate(){return `<div class="catalog-filter-drawer" id="catalog-filter-drawer" hidden inert aria-hidden="true"><div class="catalog-filter-sheet"><button type="button" data-filter-close aria-label="Filtreleri kapat">×</button><h2>Filtrele</h2><label>Minimum fiyat<input type="number" name="minPrice" min="0"></label><label>Maksimum fiyat<input type="number" name="maxPrice" min="0"></label><label><input type="checkbox" name="inStock"> Yalnızca stoktakiler</label><button type="button" data-filter-apply>Filtreleri Uygula</button></div></div>`}
+

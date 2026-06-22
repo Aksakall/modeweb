@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sıla Sarıoğlu — Kumaşın Sustuğu Yer</title>
+<meta name="description" content="Şal, abaya, takım ve elbiselerde zamansız tasarım, özenli doku ve butik alışveriş deneyimi.">
+<link rel="canonical" href="https://silasarioglu.com/">
+<meta property="og:title" content="Sıla Sarıoğlu — Kumaşın Sustuğu Yer">
+<meta property="og:description" content="Zamansız tesettür giyim ve seçkin şal koleksiyonu.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://silasarioglu.com/">
 
 <!-- ===================== FONTS ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -420,6 +426,7 @@ button{ min-width:44px; min-height:44px; }
   font-family:'Fraunces',serif; font-size:24px; padding:10px 0;
   border-bottom:1px solid var(--line);
 }
+.mobile-nav-action{ display:block; width:100%; min-height:44px; padding:10px 0; border:0; background:none; color:var(--ink); text-align:left; font:24px 'Fraunces',serif; cursor:pointer; }
 .mobile-link-strong{ font-weight:500; color:var(--wine) !important; }
 .mobile-section-toggle{
   width:100%; min-height:44px; padding:0;
@@ -953,6 +960,10 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
   text-transform:uppercase; color:var(--wine); margin-bottom:12px;
 }
 .size-options{ display:flex; flex-wrap:wrap; gap:8px; }
+.detail-quantity{ display:flex; align-items:center; gap:10px; }
+.detail-quantity button{ width:44px; height:44px; border:1px solid var(--line); background:transparent; color:var(--wine); cursor:pointer; }
+.detail-quantity output{ min-width:28px; text-align:center; font:12px 'JetBrains Mono',monospace; }
+.detail-stock{ margin-left:6px; color:var(--taupe); font-size:12px; }
 .size-option{
   min-width:48px; height:40px;
   border:1px solid var(--line);
@@ -967,7 +978,7 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
 .product-color-block h4 span{ color:var(--taupe); margin-left:6px; }
 .color-options{ display:flex; gap:10px; flex-wrap:wrap; }
 .color-option{
-  position:relative; width:38px; height:38px; min-width:38px; min-height:38px;
+  position:relative; width:44px; height:44px; min-width:44px; min-height:44px;
   padding:0; border:1px solid var(--line); background:var(--swatch); cursor:pointer;
 }
 .color-option.is-active{ border:3px solid var(--wine); }
@@ -1002,6 +1013,7 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
   display:flex; align-items:center; justify-content:center;
 }
 .modal-favorite.is-active{ background:var(--wine); color:var(--cream); }
+.modal-whatsapp{ min-height:46px; border:1px solid var(--line); background:transparent; color:var(--wine); font:10px 'JetBrains Mono',monospace; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
 .modal-size-warning{
   display:none;
   color:var(--wine);
@@ -1194,7 +1206,7 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
   font-size:clamp(34px,6vw,76px); line-height:1.05; margin-bottom:28px;
 }
 .cta-form{
-  display:flex; max-width:440px; margin:0 auto; border-bottom:1px solid rgba(250,245,238,0.4);
+  display:grid; grid-template-columns:1fr auto; max-width:560px; margin:0 auto; border-bottom:1px solid rgba(250,245,238,0.4);
   padding-bottom:14px; gap:12px;
 }
 .cta-form input{
@@ -1253,7 +1265,8 @@ footer{
   .nav-logo{ height:30px; flex:0 0 auto; }
   .nav-actions{ gap:0; margin-left:auto; }
   #btn-search,
-  #btn-user{ display:none; }
+  #btn-user,
+  #btn-favorites{ display:none; }
   .nav-icon-btn{ width:40px; height:40px; flex:0 0 40px; }
   .nav-icon-btn svg{ width:18px; height:18px; }
   .cart-count{ top:1px; right:1px; }
@@ -1433,6 +1446,11 @@ footer{
   .user-tabs{ margin-bottom:20px; }
   .user-field{ margin-bottom:14px; }
 }
+.newsletter-consent,.cta-form .form-status{ grid-column:1/-1; }
+.newsletter-consent{ display:flex; gap:9px; align-items:flex-start; text-align:left; color:rgba(250,245,238,.7); font-size:11px; line-height:1.5; }
+.newsletter-consent input{ flex:0 0 auto; width:16px; height:16px; margin-top:1px; }
+.form-status{ min-height:18px; font-size:12px; line-height:1.5; color:var(--gold); }
+.user-forgot{ border:0; background:none; color:var(--taupe); cursor:pointer; padding:12px; font-size:12px; }
 
 /* Mobile product detail: premium bottom sheet */
 @media (max-width:768px){
@@ -1487,7 +1505,7 @@ footer{
   }
   .product-modal-close{
     position:fixed;
-    top:22px;
+    top:max(22px, calc(8dvh + 12px));
     left:max(22px, calc((100vw - 420px) / 2 + 12px));
     right:auto;
     z-index:40;
@@ -1514,12 +1532,15 @@ footer{
     align-items:center;
   }
   .product-modal-actions{
-    position:static;
+    position:sticky;
+    bottom:0;
+    z-index:30;
     display:block;
-    margin:0;
-    padding:4px 0 0;
+    margin:0 -18px -20px;
+    padding:12px 18px max(12px, env(safe-area-inset-bottom));
     border:0;
-    background:transparent;
+    background:rgba(250,245,238,.96);
+    backdrop-filter:blur(12px);
   }
   .modal-add-cart{
     width:100%;
@@ -1527,7 +1548,7 @@ footer{
   }
   .modal-favorite{
     position:fixed;
-    top:22px;
+    top:max(22px, calc(8dvh + 12px));
     right:max(22px, calc((100vw - 420px) / 2 + 12px));
     left:auto;
     z-index:41;
@@ -1575,9 +1596,9 @@ footer{
       <div class="nav-link-wrap" data-menu="sallar">
         <button class="nav-link">Şallar <span class="chev">▾</span></button>
         <div class="mega">
-          <a href="sallar.html#a-plus">A++ Kalite Şallar</a>
-          <a href="sallar.html#pamuk">%100 Pamuklu Şallar</a>
-          <a href="sallar.html#muadil">Muadil Şallar</a>
+          <a href="a-kalite-sallar.html">A++ Kalite Şallar</a>
+          <a href="pamuklu-sallar.html">%100 Pamuklu Şallar</a>
+          <a href="muadil-sallar.html">Muadil Şallar</a>
         </div>
       </div>
 
@@ -1585,11 +1606,11 @@ footer{
         <button class="nav-link">Giyim <span class="chev">▾</span></button>
         <div class="mega">
           <span class="mega-sub">Kategoriler</span>
-          <a href="giyim.html#ust">Üst Giyim</a>
-          <a href="giyim.html#alt">Alt Giyim</a>
-          <a href="giyim.html#iclik">İçlik</a>
-          <a href="giyim.html#takim">Takım</a>
-          <a href="giyim.html#elbise">Elbise</a>
+          <a href="ust-giyim.html">Üst Giyim</a>
+          <a href="alt-giyim.html">Alt Giyim</a>
+          <a href="iclik.html">İçlik</a>
+          <a href="takim.html">Takım</a>
+          <a href="elbise.html">Elbise</a>
         </div>
       </div>
 
@@ -1606,6 +1627,10 @@ footer{
     <button class="nav-icon-btn" id="btn-user" aria-label="Hesabım">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4 5-6 8-6s6.4 2 8 6"/></svg>
     </button>
+    <a class="nav-icon-btn" id="btn-favorites" href="favoriler.html" aria-label="Favorilerim">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+      <span class="cart-count" id="favorite-count">0</span>
+    </a>
     <button class="nav-icon-btn" id="btn-cart" aria-label="Sepetim">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h2l2.4 12.2a2 2 0 002 1.8h7.2a2 2 0 002-1.8L20 8H6"/><circle cx="9" cy="21" r="1"/><circle cx="17" cy="21" r="1"/></svg>
       <span class="cart-count" id="cart-count">0</span>
@@ -1625,25 +1650,27 @@ footer{
     <div class="mobile-section has-submenu">
       <button class="mobile-section-toggle" type="button" aria-expanded="false">Şallar</button>
       <div class="mobile-submenu">
-        <a href="sallar.html#a-plus">A++ Kalite Şallar</a>
-        <a href="sallar.html#pamuk">%100 Pamuklu Şallar</a>
-        <a href="sallar.html#muadil">Muadil Şallar</a>
+        <a href="a-kalite-sallar.html">A++ Kalite Şallar</a>
+        <a href="pamuklu-sallar.html">%100 Pamuklu Şallar</a>
+        <a href="muadil-sallar.html">Muadil Şallar</a>
       </div>
     </div>
     <div class="mobile-section has-submenu">
       <button class="mobile-section-toggle" type="button" aria-expanded="false">Giyim</button>
       <div class="mobile-submenu">
-        <a href="giyim.html#ust">Üst Giyim</a>
-        <a href="giyim.html#alt">Alt Giyim</a>
-        <a href="giyim.html#iclik">İçlik</a>
-        <a href="giyim.html#takim">Takım</a>
-        <a href="giyim.html#elbise">Elbise</a>
+        <a href="ust-giyim.html">Üst Giyim</a>
+        <a href="alt-giyim.html">Alt Giyim</a>
+        <a href="iclik.html">İçlik</a>
+        <a href="takim.html">Takım</a>
+        <a href="elbise.html">Elbise</a>
       </div>
     </div>
     <div class="mobile-section">
       <a href="indirim.html" class="mobile-link-strong">İndirim</a>
-      <a href="#urunler" class="mobile-link-strong">Ürünler</a>
-      <a href="#hikaye" class="mobile-link-strong">Hikayemiz</a>
+      <a href="yeni-gelenler.html" class="mobile-link-strong">Yeni Gelenler</a>
+      <a href="cok-satanlar.html" class="mobile-link-strong">Çok Satanlar</a>
+      <button type="button" class="mobile-nav-action" id="mobile-cart-link">Sepet</button>
+      <a href="iletisim.html" class="mobile-link-strong">İletişim</a>
     </div>
   </div>
 </div>
@@ -1677,17 +1704,21 @@ footer{
       <button class="user-tab" data-tab="register">Üye Ol</button>
     </div>
 
-    <form id="form-login" class="user-form" onsubmit="event.preventDefault();">
+    <form id="form-login" class="user-form">
       <div class="user-field"><label for="login-email">E-posta</label><input id="login-email" type="email" placeholder="ornek@eposta.com" required></div>
       <div class="user-field"><label for="login-password">Şifre</label><input id="login-password" type="password" placeholder="••••••••" required></div>
       <button class="user-submit" type="submit">Giriş Yap</button>
+      <button class="user-forgot" id="forgot-password" type="button">Şifremi Unuttum</button>
+      <p class="form-status" id="login-status" role="status"></p>
     </form>
 
-    <form id="form-register" class="user-form" style="display:none;" onsubmit="event.preventDefault();">
+    <form id="form-register" class="user-form" style="display:none;">
       <div class="user-field"><label for="register-name">Ad Soyad</label><input id="register-name" type="text" placeholder="Adınız Soyadınız" required></div>
       <div class="user-field"><label for="register-email">E-posta</label><input id="register-email" type="email" placeholder="ornek@eposta.com" required></div>
+      <div class="user-field"><label for="register-phone">Telefon</label><input id="register-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></div>
       <div class="user-field"><label for="register-password">Şifre</label><input id="register-password" type="password" placeholder="••••••••" required></div>
       <button class="user-submit" type="submit">Hesap Oluştur</button>
+      <p class="form-status" id="register-status" role="status"></p>
     </form>
   </div>
 </div>
@@ -1726,6 +1757,16 @@ footer{
       </div>
 
       <div class="detail-block">
+        <h4>Adet</h4>
+        <div class="detail-quantity">
+          <button type="button" id="detail-quantity-dec" aria-label="Adedi azalt">−</button>
+          <output id="detail-quantity" aria-live="polite">1</output>
+          <button type="button" id="detail-quantity-inc" aria-label="Adedi artır">+</button>
+          <span class="detail-stock" id="detail-stock"></span>
+        </div>
+      </div>
+
+      <div class="detail-block">
         <h4>Ürün Özellikleri</h4>
         <ul class="detail-list" id="detail-features"></ul>
       </div>
@@ -1736,6 +1777,7 @@ footer{
           <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
         </button>
       </div>
+      <button class="modal-whatsapp" id="detail-whatsapp" type="button">WhatsApp ile Sor</button>
     </div>
   </div>
 </div>
@@ -1769,7 +1811,7 @@ footer{
       <div class="summary-row total"><span>Toplam</span><strong id="cart-total">₺0,00</strong></div>
       <p class="payment-note">Sipariş detayların WhatsApp'a hazır mesaj olarak aktarılır. Ekibimiz stok ve teslimat bilgisini paylaşır.</p>
       <div class="cart-summary-actions">
-        <button class="cart-primary" id="cart-whatsapp-btn" type="button">WhatsApp ile Sipariş Ver</button>
+        <button class="cart-primary" id="cart-checkout-btn" type="button">Checkout'a Geç</button>
         <button class="cart-secondary" id="cart-continue-btn" type="button">Alışverişe Devam Et</button>
       </div>
     </div>
@@ -1833,7 +1875,7 @@ footer{
   </div>
 
   <div class="collection-feature">
-    <a class="collection-hero-card" href="giyim.html#takim" aria-label="Takım koleksiyonunu incele">
+    <a class="collection-hero-card" href="takim.html" aria-label="Takım koleksiyonunu incele">
       <img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 60vw" alt="Tesettür giyim koleksiyonu" loading="lazy">
       <div class="collection-copy">
         <span class="label">Atölye Seçkisi</span>
@@ -1918,8 +1960,8 @@ footer{
   </div>
   <div class="showcase-grid">
     <a class="showcase-item" href="sallar.html"><img src="https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür şal detayı" loading="lazy"><span class="tag">Şallar</span></a>
-    <a class="showcase-item" href="giyim.html#takim"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür takım" loading="lazy"><span class="tag">Takımlar</span></a>
-    <a class="showcase-item" href="giyim.html#elbise"><img src="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür elbise" loading="lazy"><span class="tag">Elbiseler</span></a>
+    <a class="showcase-item" href="takim.html"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür takım" loading="lazy"><span class="tag">Takımlar</span></a>
+    <a class="showcase-item" href="elbise.html"><img src="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür elbise" loading="lazy"><span class="tag">Elbiseler</span></a>
   </div>
 </section>
 
@@ -1927,10 +1969,12 @@ footer{
 <section id="bulten" class="cta-band">
   <span class="eyebrow" style="justify-content:center; color:var(--gold);">Aileye Katıl</span>
   <h2 class="font-display" style="margin-top:18px;">Yeni koleksiyondan<br>ilk sen haberdar ol.</h2>
-  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Teşekkürler ✓';">
+  <form class="cta-form" id="newsletter-form">
     <label class="sr-only" for="newsletter-email">E-posta adresin</label>
     <input id="newsletter-email" type="email" placeholder="E-posta adresin" required>
     <button type="submit" class="magnetic">Kaydol →</button>
+    <label class="newsletter-consent"><input id="newsletter-kvkk" type="checkbox" required> <span>KVKK bilgilendirmesini okudum ve e-bülten gönderimini kabul ediyorum.</span></label>
+    <p class="form-status" id="newsletter-status" role="status"></p>
   </form>
 </section>
 
@@ -1945,21 +1989,22 @@ footer{
     </div>
     <div>
       <h4>Kurumsal</h4>
-      <a href="#">Hakkımızda</a>
-      <a href="#">İletişim</a>
-      <a href="#">Mağazalar</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="kargo-ve-teslimat.html">Kargo ve Teslimat</a>
     </div>
     <div>
       <h4>Müşteri İlişkileri</h4>
-      <a href="#">KVKK</a>
-      <a href="#">Gizlilik Politikası</a>
-      <a href="#">Değişim ve İade</a>
+      <a href="kvkk.html">KVKK</a>
+      <a href="gizlilik-politikasi.html">Gizlilik Politikası</a>
+      <a href="mesafeli-satis-sozlesmesi.html">Mesafeli Satış Sözleşmesi</a>
+      <a href="degisim-ve-iade.html">Değişim ve İade</a>
     </div>
     <div>
-      <h4>Bizi Takip Et</h4>
-      <a href="#">Instagram</a>
-      <a href="#">WhatsApp</a>
-      <a href="#">Pinterest</a>
+      <h4>Destek</h4>
+      <a href="iletisim.html">WhatsApp ve İletişim</a>
+      <a href="kargo-ve-teslimat.html">Kargo Takibi</a>
+      <a href="favoriler.html">Favorilerim</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1968,7 +2013,14 @@ footer{
   </div>
 </footer>
 
-<script>
+<script type="module">
+import { productService } from './services/productService.js';
+import { cartService } from './services/cartService.js';
+import { favoriteService } from './services/favoriteService.js';
+import { authService } from './services/authService.js';
+import { newsletterService } from './services/newsletterService.js';
+import { formatPrice } from './utils/formatPrice.js';
+import { createWhatsAppUrl } from './utils/whatsappMessage.js';
 /* =====================================================================
    SİSTEM 0 — GLOBAL GUARDS
    prefers-reduced-motion burada okunuyor; true ise ağır sistemler
@@ -2200,68 +2252,7 @@ if(!REDUCED_MOTION){
 /* =====================================================================
    SİSTEM 5 — ÜRÜN KATALOĞU
 ===================================================================== */
-const PRODUCTS = [
-  { name:'Noir Abaya Takım', variant:'Bordo', category:'giyim', categoryLabel:'Giyim / Takım', sale:true, price:'2.050,00', old:'2.500,00', badge:'%18 İndirim', size:'big',
-    sizes:['S','M','L','XL'], desc:'Akışkan kumaşı ve tok bordo tonu ile özel günlerden günlük kullanıma uzanan zarif bir abaya takım.',
-    features:['Astarlı üst parça','Rahat kesim','Mevsimlik kumaş','Kemer detayı'],
-    a:'https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Pure Etekli İkili Takım', variant:'Ekru', category:'giyim', categoryLabel:'Giyim / Takım', sale:true, price:'1.950,00', old:'3.000,00', badge:'%35 İndirim', size:'small',
-    sizes:['S','M','L'], desc:'Ekru tonu, sade çizgisi ve iki parçalı yapısıyla gardıropta kolay kombinlenen yumuşak bir takım.',
-    features:['İki parçalı set','Dökümlü etek','Nefes alan doku','Günlük kullanıma uygun'],
-    a:'https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1000&auto=format&fit=crop' },
-  { name:"Na'i DD Şal", variant:'Vizon', category:'sal', categoryLabel:'Şallar / Dokulu', sale:true, price:'999,90', old:'1.200,00', badge:'%17 İndirim', size:'small',
-    sizes:['Standart'], desc:'Vizon rengi ve tok dokusuyla hem açık hem koyu kombinlere sakin bir tamamlayıcı olur.',
-    features:['Standart ölçü','Kayma yapmayan doku','Dört mevsim kullanım','Kolay şekil alır'],
-    a:'https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Louve Vual Takım', variant:'Küf Yeşili', category:'giyim', categoryLabel:'Giyim / Takım', sale:true, price:'999,00', old:'3.500,00', badge:'%71 İndirim', size:'big',
-    sizes:['S','M','L','XL'], desc:'Küf yeşilinin dingin tonunu vual dokuyla birleştiren, hafif ve ferah bir takım.',
-    features:['Vual dokulu kumaş','Hafif yapı','Bol kesim','Sezon finali ürünü'],
-    a:'https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Mila Vual Elbise', variant:'Tereyağ Sarısı', category:'giyim', categoryLabel:'Giyim / Elbise', sale:true, price:'1.999,00', old:'4.000,00', badge:'%50 İndirim', size:'small',
-    sizes:['S','M','L'], desc:'Yumuşak sarı tonu ve rahat formuyla tek parçada sade ama dikkat çeken bir elbise seçeneği.',
-    features:['Tek parça elbise','Yumuşak tuşe','Rahat kalıp','Özel gün ve günlük kullanım'],
-    a:'https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Noun Keten Elbise', variant:'Standart', category:'giyim', categoryLabel:'Giyim / Elbise', sale:true, price:'1.999,00', old:'3.000,00', badge:'%33 İndirim', size:'small',
-    sizes:['S','M','L','XL'], desc:'Keten hissi taşıyan doğal görünümüyle sıcak havalarda ferah bir kullanım sunan sade elbise.',
-    features:['Keten görünümlü doku','Ferah kullanım','Standart boy','Günlük kombinlere uygun'],
-    a:'https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Alya Krep Tunik', variant:'Taş', category:'giyim', categoryLabel:'Giyim / Tunik', sale:false, price:'1.590,00', old:'1.850,00', badge:'Yeni Sezon', size:'small',
-    sizes:['S','M','L','XL'], desc:'Duru taş tonu ve akışkan krep dokusuyla gün boyu konfor sunan modern tunik.',
-    features:['Krep dokulu kumaş','Yırtmaç detayı','Rahat kalıp','Kolay kombinlenir'],
-    a:'https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Lina Piliseli Etek', variant:'Kahve', category:'giyim', categoryLabel:'Giyim / Etek', sale:false, price:'1.450,00', old:'1.750,00', badge:'Yeni Sezon', size:'small',
-    sizes:['S','M','L'], desc:'Akıcı piliseleri ve sıcak kahve tonuyla gündüzden akşama uyum sağlayan zarif etek.',
-    features:['Kalıcı pilise','Esnek bel','Astarlı yapı','Mevsimlik kullanım'],
-    a:'https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Mira Pamuk Şal', variant:'Krem', category:'sal', categoryLabel:'Şallar / Pamuk', sale:false, price:'849,90', old:'949,90', badge:'Çok Sevilen', size:'small',
-    sizes:['Standart'], desc:'Nefes alan pamuk dokusu ve yumuşak krem tonuyla günlük kombinlerin doğal tamamlayıcısı.',
-    features:['Pamuklu doku','Standart ölçü','Hafif yapı','Günlük kullanıma uygun'],
-    a:'https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Sera Saten Şal', variant:'Siyah', category:'sal', categoryLabel:'Şallar / Saten', sale:true, price:'1.050,00', old:'1.250,00', badge:'%16 İndirim', size:'small',
-    sizes:['Standart'], desc:'Işığı zarifçe yansıtan saten yüzeyiyle davet görünümlerine rafine bir dokunuş katar.',
-    features:['Saten yüzey','Tok duruş','Standart ölçü','Özel gün seçkisi'],
-    a:'https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Nora Kuşaklı Abaya', variant:'Antrasit', category:'giyim', categoryLabel:'Giyim / Abaya', sale:false, price:'2.350,00', old:'2.650,00', badge:'Yeni Sezon', size:'small',
-    sizes:['S','M','L','XL'], desc:'Antrasit tonun güçlü sadeliğini kuşak detayı ve uzun siluetle tamamlayan şehirli abaya.',
-    features:['Kuşaklı form','Uzun siluet','Dökümlü kumaş','Astarsız hafif yapı'],
-    a:'https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop' },
-  { name:'Ecrin Vual Elbise', variant:'Gül Kurusu', category:'giyim', categoryLabel:'Giyim / Elbise', sale:false, price:'2.190,00', old:'2.490,00', badge:'Yeni Sezon', size:'small',
-    sizes:['S','M','L'], desc:'Gül kurusu tonu, hafif vual katları ve dengeli hacmiyle özel anlara eşlik eden elbise.',
-    features:['Vual katman','Astarlı gövde','Bilek boy kol','Rahat kesim'],
-    a:'https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1000&auto=format&fit=crop',
-    b:'https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1000&auto=format&fit=crop' },
-];
+const { items:PRODUCTS } = await productService.list({ limit:24 });
 
 const bento = document.getElementById('bento-grid');
 const productCount = document.getElementById('product-count');
@@ -2280,12 +2271,18 @@ const detailSizes = document.getElementById('detail-sizes');
 const detailFeatures = document.getElementById('detail-features');
 const detailAddCart = document.getElementById('detail-add-cart');
 const detailFavorite = document.getElementById('detail-favorite');
+const detailWhatsApp = document.getElementById('detail-whatsapp');
 const detailSizeWarning = document.getElementById('detail-size-warning');
+const detailQuantity = document.getElementById('detail-quantity');
+const detailStock = document.getElementById('detail-stock');
 let activeProductId = null;
 let activeSize = '';
 let activeColor = '';
+let activeVariantId = '';
 let activeGalleryIndex = 0;
-const favorites = new Set(JSON.parse(localStorage.getItem('sila-favorites-v1') || '[]'));
+let activeQuantity = 1;
+const favorites = new Set(await favoriteService.get());
+document.getElementById('favorite-count').textContent=favorites.size;
 
 function imageAtWidth(src, width){
   const url = new URL(src, window.location.href);
@@ -2298,21 +2295,29 @@ function responsiveImageSet(src){
 }
 
 function getProductColors(product){
-  const palettes = {
-    Bordo:[['Bordo','#6f1d24'],['Krem','#ded2b9'],['Siyah','#22201f']],
-    Ekru:[['Ekru','#e7dfd1'],['Vizon','#9a8878'],['Siyah','#22201f']],
-    Vizon:[['Vizon','#9a8878'],['Taş','#c7b9a5'],['Antrasit','#3d3a39']],
-    'Küf Yeşili':[['Küf Yeşili','#6d7460'],['Taş','#c7b9a5'],['Siyah','#22201f']],
-    'Tereyağ Sarısı':[['Tereyağ Sarısı','#e6cf8d'],['Ekru','#e7dfd1'],['Vizon','#9a8878']],
-    Standart:[['Doğal','#b8a58e'],['Ekru','#e7dfd1'],['Siyah','#22201f']]
-  };
-  return palettes[product.variant] || [[product.variant,'#7a2426'],['Ekru','#e7dfd1'],['Siyah','#22201f']];
+  return product.colors.map(color=>[color.name,color.hex]);
+}
+
+function getProduct(productId){
+  return PRODUCTS.find(product=>product.id===String(productId));
+}
+
+function syncActiveVariant(){
+  const product=getProduct(activeProductId);
+  const variant=product?.variants.find(item=>item.color===activeColor&&item.size===activeSize);
+  activeVariantId=variant?.id||'';
+  activeQuantity=Math.min(activeQuantity,Math.max(1,variant?.stock||1));
+  detailQuantity.value=String(activeQuantity);
+  detailQuantity.textContent=String(activeQuantity);
+  detailStock.textContent=variant?`${variant.stock} adet stokta`:'Varyant seçiniz';
+  detailAddCart.disabled=!variant||variant.stock<1;
+  detailAddCart.textContent=variant?.stock>0?'Sepete Ekle':'Stokta Yok';
 }
 
 function selectDetailImage(index){
-  const product = PRODUCTS[Number(activeProductId)];
+  const product = getProduct(activeProductId);
   if(!product) return;
-  const images = [product.a, product.b];
+  const images = product.images;
   activeGalleryIndex = Math.max(0, Math.min(index, images.length - 1));
   const image = images[activeGalleryIndex];
   detailImg.src = imageAtWidth(image, 1200);
@@ -2336,52 +2341,50 @@ detailImg.parentElement.addEventListener('touchend', e=>{
 
 PRODUCTS.forEach((p, i)=>{
   const card = document.createElement('div');
-  card.className = `p-card reveal-clip ${p.size}`;
-  card.dataset.productId = String(i);
-  card.dataset.category = p.category;
-  card.dataset.sale = p.sale ? 'true' : 'false';
+  const badge=p.isDiscounted?`%${p.discountPercent} İndirim`:(p.isNew?'Yeni Sezon':(p.isBestSeller?'Çok Satan':''));
+  card.className = 'p-card reveal-clip small';
+  card.dataset.productId = p.id;
+  card.dataset.category = p.categorySlug === 'sallar' ? 'sal' : p.categorySlug;
+  card.dataset.sale = p.isDiscounted ? 'true' : 'false';
   card.innerHTML = `
     <div class="img-stack">
-      <img class="img-a" src="${imageAtWidth(p.a, 1200)}" srcset="${responsiveImageSet(p.a)}" sizes="(max-width:900px) 50vw, 25vw" alt="${p.name}" loading="lazy">
-      <img class="img-b" src="${imageAtWidth(p.b, 1200)}" srcset="${responsiveImageSet(p.b)}" sizes="(max-width:900px) 50vw, 25vw" alt="${p.name} - detay" loading="lazy">
+      <img class="img-a" src="${imageAtWidth(p.images[0], 1200)}" srcset="${responsiveImageSet(p.images[0])}" sizes="(max-width:900px) 50vw, 25vw" alt="${p.name}" loading="lazy">
+      <img class="img-b" src="${imageAtWidth(p.images[1]||p.images[0], 1200)}" srcset="${responsiveImageSet(p.images[1]||p.images[0])}" sizes="(max-width:900px) 50vw, 25vw" alt="${p.name} - detay" loading="lazy">
     </div>
-    <span class="badge">${p.badge}</span>
-    <button class="add-btn" type="button" aria-label="${p.name} ürününü sepete ekle" data-product-id="${i}">＋</button>
+    ${badge?`<span class="badge">${badge}</span>`:''}
+    <button class="add-btn" type="button" aria-label="${p.name} ürününü sepete ekle" data-product-id="${p.id}">＋</button>
     <div class="meta">
-      <span class="product-category">${p.categoryLabel}</span>
-      <h3 class="font-display">${p.name}<span>${p.variant}</span></h3>
+      <span class="product-category">${p.brand} · ${p.category} / ${p.subCategory}</span>
+      <h3 class="font-display">${p.name}<span>${p.colors[0]?.name||''}</span></h3>
       <div class="product-card-footer">
-        <div class="price">₺${p.price}<span class="old">₺${p.old}</span></div>
-        <button class="product-add-text" type="button" data-product-id="${i}">Sepete Ekle</button>
+        <div class="price">${formatPrice(p.price)}${p.oldPrice?`<span class="old">${formatPrice(p.oldPrice)}</span>`:''}</div>
+        <button class="product-add-text" type="button" data-product-id="${p.id}">${p.stock?'Sepete Ekle':'Gelince Haber Ver'}</button>
       </div>
     </div>
   `;
   bento.appendChild(card);
 });
 
-function saveFavorites(){
-  localStorage.setItem('sila-favorites-v1', JSON.stringify([...favorites]));
-}
-
 function openProductModal(productId){
-  const product = PRODUCTS[Number(productId)];
+  const product = getProduct(productId);
   if(!product) return;
   activeProductId = String(productId);
   activeSize = product.sizes.length === 1 ? product.sizes[0] : '';
   activeGalleryIndex = 0;
+  activeQuantity = 1;
   const productColors = getProductColors(product);
-  activeColor = productColors[0][0];
-  detailImg.src = imageAtWidth(product.a, 1200);
-  detailImg.srcset = responsiveImageSet(product.a);
+  activeColor = productColors[0]?.[0]||'';
+  detailImg.src = imageAtWidth(product.images[0], 1200);
+  detailImg.srcset = responsiveImageSet(product.images[0]);
   detailImg.sizes = '(max-width:768px) 100vw, 50vw';
   detailImg.alt = product.name;
-  detailBadge.textContent = product.badge;
-  detailCategory.textContent = product.categoryLabel;
+  detailBadge.textContent = product.isDiscounted ? `%${product.discountPercent} İndirim` : (product.isNew?'Yeni Sezon':'');
+  detailCategory.textContent = `${product.brand} · ${product.category} / ${product.subCategory}`;
   detailTitle.textContent = product.name;
-  detailVariant.textContent = product.variant;
-  detailPrice.innerHTML = `₺${product.price}<span class="old">₺${product.old}</span>`;
-  detailDesc.textContent = product.desc;
-  detailGalleryDots.innerHTML = [product.a, product.b].map((_, index)=> `
+  detailVariant.textContent = activeColor;
+  detailPrice.innerHTML = `${formatPrice(product.price)}${product.oldPrice?`<span class="old">${formatPrice(product.oldPrice)}</span>`:''}`;
+  detailDesc.textContent = product.description;
+  detailGalleryDots.innerHTML = product.images.map((_, index)=> `
     <button class="gallery-dot${index === 0 ? ' is-active' : ''}" type="button" data-detail-image="${index}" aria-label="${index + 1}. ürün görseli" aria-current="${index === 0 ? 'true' : 'false'}"></button>
   `).join('');
   detailColorName.textContent = `— ${activeColor}`;
@@ -2391,9 +2394,10 @@ function openProductModal(productId){
   detailSizes.innerHTML = product.sizes.map(size => `
     <button class="size-option${size === activeSize ? ' is-active' : ''}" type="button" data-size="${size}">${size}</button>
   `).join('');
-  detailFeatures.innerHTML = product.features.map(feature => `<li>${feature}</li>`).join('');
+  detailFeatures.innerHTML = [product.fabricInfo,product.measurements,product.careInstructions,product.freeShipping?'Ücretsiz kargo':'1500 TL üzeri ücretsiz kargo'].map(feature => `<li>${feature}</li>`).join('');
   detailFavorite.classList.toggle('is-active', favorites.has(activeProductId));
   detailSizeWarning.classList.remove('is-visible');
+  syncActiveVariant();
   showOverlay(productModal);
   lockScroll(true);
 }
@@ -2423,6 +2427,11 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
   });
 });
 applyProductFilter('all');
+const requestedProductSlug=new URLSearchParams(window.location.search).get('product');
+if(requestedProductSlug){
+  const requestedProduct=await productService.getBySlug(requestedProductSlug);
+  if(requestedProduct) setTimeout(()=>openProductModal(requestedProduct.id),120);
+}
 
 /* =====================================================================
    SİSTEM 6 — INTERSECTION REVEAL (kartlar + genel scroll reveal)
@@ -2636,6 +2645,21 @@ searchOverlay.addEventListener('click', e=>{ if(e.target===searchOverlay) closeS
 document.querySelectorAll('.search-suggest button').forEach(tag=>{
   tag.addEventListener('click', ()=>{ searchInput.value = tag.textContent; searchInput.focus(); });
 });
+let searchTimer;
+searchInput.addEventListener('input',()=>{
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(async()=>{
+    const {items}=await productService.list({search:searchInput.value.trim(),limit:24});
+    const ids=new Set(items.map(item=>item.id));
+    document.querySelectorAll('.p-card').forEach(card=>card.classList.toggle('is-hidden',!ids.has(card.dataset.productId)));
+    productCount.textContent=`${items.length} ürün`;
+  },320);
+});
+searchInput.addEventListener('keydown',event=>{
+  if(event.key!=='Enter') return;
+  closeSearch();
+  document.getElementById('urunler').scrollIntoView({behavior:REDUCED_MOTION?'auto':'smooth'});
+});
 
 /* ---- Kullanıcı paneli (giriş / üye ol) ---- */
 const userOverlay = document.getElementById('user-overlay');
@@ -2663,6 +2687,32 @@ userTabs.forEach(tab=>{
 });
 formLogin.style.display = 'flex'; formLogin.style.flexDirection = 'column';
 formRegister.style.flexDirection = 'column';
+formLogin.addEventListener('submit',async event=>{
+  event.preventDefault();
+  const button=formLogin.querySelector('[type="submit"]');const status=document.getElementById('login-status');
+  button.disabled=true;button.textContent='Giriş yapılıyor…';status.textContent='';
+  try{
+    const result=await authService.login({email:document.getElementById('login-email').value,password:document.getElementById('login-password').value});
+    status.textContent=`Hoş geldiniz, ${result.user.fullName}.`;button.textContent='Giriş Yap';
+  }catch(error){status.textContent=error.message==='API_NOT_CONFIGURED'?'Hesap hizmeti şu anda kullanılamıyor. Lütfen daha sonra yeniden deneyin.':error.message;button.textContent='Giriş Yap';}
+  finally{button.disabled=false;}
+});
+formRegister.addEventListener('submit',async event=>{
+  event.preventDefault();
+  const button=formRegister.querySelector('[type="submit"]');const status=document.getElementById('register-status');
+  button.disabled=true;button.textContent='Hesap oluşturuluyor…';status.textContent='';
+  try{
+    await authService.register({fullName:document.getElementById('register-name').value,email:document.getElementById('register-email').value,phone:document.getElementById('register-phone').value,password:document.getElementById('register-password').value});
+    status.textContent='Hesabınız oluşturuldu.';button.textContent='Hesap Oluştur';
+  }catch(error){status.textContent=error.message==='API_NOT_CONFIGURED'?'Üyelik hizmeti şu anda kullanılamıyor. Lütfen daha sonra yeniden deneyin.':error.message;button.textContent='Hesap Oluştur';}
+  finally{button.disabled=false;}
+});
+document.getElementById('forgot-password').addEventListener('click',async()=>{
+  const email=document.getElementById('login-email').value;const status=document.getElementById('login-status');
+  if(!email){status.textContent='Önce e-posta adresinizi girin.';return;}
+  try{await authService.forgotPassword(email);status.textContent='Şifre yenileme bağlantısı e-posta adresinize gönderildi.';}
+  catch(error){status.textContent=error.message==='API_NOT_CONFIGURED'?'Şifre yenileme hizmeti şu anda kullanılamıyor.':error.message;}
+});
 
 /* ---- Sepet + WhatsApp sipariş akışı ---- */
 const cartCountEl = document.getElementById('cart-count');
@@ -2673,45 +2723,11 @@ const cartEmptyEl = document.getElementById('cart-empty');
 const cartSubtotalEl = document.getElementById('cart-subtotal');
 const cartShippingEl = document.getElementById('cart-shipping');
 const cartTotalEl = document.getElementById('cart-total');
-const cartWhatsAppBtn = document.getElementById('cart-whatsapp-btn');
-const CART_STORAGE_KEY = 'sila-cart-v1';
-let cart = loadCart();
-
-function parseTRY(value){
-  return Number(String(value).replace(/\./g, '').replace(',', '.')) || 0;
-}
-
-function formatTRY(value){
-  return `${value.toLocaleString('tr-TR', { minimumFractionDigits:2, maximumFractionDigits:2 })} ₺`;
-}
-
-function loadCart(){
-  try{
-    const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
-    return Array.isArray(saved) ? saved : [];
-  }catch{
-    return [];
-  }
-}
-
-function saveCart(){
-  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-}
-
-function getProduct(id){
-  return PRODUCTS[Number(id)];
-}
-
-function getCartKey(item){
-  const product = getProduct(item.id);
-  return `${item.id}::${item.size || 'Standart'}::${item.color || product?.variant || 'Standart'}`;
-}
+const cartCheckoutBtn = document.getElementById('cart-checkout-btn');
+let cart = await cartService.get();
 
 function getCartTotals(){
-  const subtotal = cart.reduce((sum, item)=>{
-    const product = getProduct(item.id);
-    return product ? sum + parseTRY(product.price) * item.qty : sum;
-  }, 0);
+  const subtotal = cart.reduce((sum,item)=>sum+Number(item.unitPrice)*item.quantity,0);
   const shipping = subtotal === 0 || subtotal >= 1500 ? 0 : 95;
   return { subtotal, shipping, total:subtotal + shipping };
 }
@@ -2726,67 +2742,59 @@ function closeCart(){
   lockScroll(false);
 }
 
-function addToCart(id, size='Standart', color=''){
+async function addToCart(id, variantId, quantity=1){
   const product = getProduct(id);
   if(!product) return;
-  const selectedSize = size || product.sizes?.[0] || 'Standart';
-  const selectedColor = color || product.variant || 'Standart';
-  const existing = cart.find(item=>
-    item.id === Number(id) &&
-    (item.size || 'Standart') === selectedSize &&
-    (item.color || product.variant || 'Standart') === selectedColor
-  );
-  if(existing){ existing.qty += 1; }
-  else{ cart.push({ id:Number(id), size:selectedSize, color:selectedColor, qty:1 }); }
-  saveCart();
+  const variant=product.variants.find(item=>item.id===variantId);
+  if(!variant||variant.stock<1) return;
+  cart=await cartService.add({
+    productId:product.id, variantId:variant.id, name:product.name, slug:product.slug,
+    image:product.thumbnail, color:variant.color, size:variant.size, quantity:Math.min(quantity,variant.stock),
+    unitPrice:variant.price, totalPrice:variant.price*Math.min(quantity,variant.stock), stock:variant.stock
+  });
   renderCart();
   openCart();
   gsap.fromTo('#btn-cart', { scale:1 }, { scale:1.25, duration:0.18, yoyo:true, repeat:1, ease:'power2.out' });
 }
 
-function updateQty(key, delta){
-  const item = cart.find(entry=> getCartKey(entry) === key);
+async function updateQty(id, delta){
+  const item = cart.find(entry=>entry.id===id);
   if(!item) return;
-  item.qty += delta;
-  if(item.qty <= 0){ cart = cart.filter(entry=> getCartKey(entry) !== key); }
-  saveCart();
+  const quantity=item.quantity+delta;
+  cart=quantity<1?await cartService.remove(id):await cartService.update(id,quantity);
   renderCart();
 }
 
-function removeFromCart(key){
-  cart = cart.filter(item=> getCartKey(item) !== key);
-  saveCart();
+async function removeFromCart(id){
+  cart=await cartService.remove(id);
   renderCart();
 }
 
 function renderCart(){
-  cart = cart.filter(item=> getProduct(item.id));
-  const itemCount = cart.reduce((sum, item)=> sum + item.qty, 0);
+  const itemCount = cart.reduce((sum,item)=>sum+item.quantity,0);
   cartCountEl.textContent = itemCount;
   cartItemsEl.innerHTML = '';
   cartEmptyEl.style.display = cart.length ? 'none' : 'flex';
 
   cart.forEach(item=>{
-    const product = getProduct(item.id);
-    const cartKey = getCartKey(item);
-    const lineTotal = parseTRY(product.price) * item.qty;
+    const lineTotal = item.unitPrice*item.quantity;
     const row = document.createElement('div');
     row.className = 'cart-item';
     row.innerHTML = `
-      <img src="${imageAtWidth(product.a, 600)}" srcset="${responsiveImageSet(product.a)}" sizes="86px" alt="${product.name}" loading="lazy">
+      <img src="${imageAtWidth(item.image, 600)}" srcset="${responsiveImageSet(item.image)}" sizes="86px" alt="${item.name}" loading="lazy">
       <div class="cart-item-main">
         <div class="cart-item-title">
-          <span>${product.name}</span>
-          <strong>${formatTRY(lineTotal)}</strong>
+          <span>${item.name}</span>
+          <strong>${formatPrice(lineTotal)}</strong>
         </div>
-        <div class="cart-item-variant">${item.color || product.variant} · Beden: ${item.size || 'Standart'} · ${product.badge}</div>
+        <div class="cart-item-variant">${item.color} · Beden: ${item.size}</div>
         <div class="cart-item-actions">
           <div class="qty-control" aria-label="Adet kontrolü">
-            <button type="button" data-cart-dec="${cartKey}">−</button>
-            <span>${item.qty}</span>
-            <button type="button" data-cart-inc="${cartKey}">+</button>
+            <button type="button" data-cart-dec="${item.id}">−</button>
+            <span>${item.quantity}</span>
+            <button type="button" data-cart-inc="${item.id}" ${item.quantity>=item.stock?'disabled':''}>+</button>
           </div>
-          <button class="cart-remove" type="button" data-cart-remove="${cartKey}">Sil</button>
+          <button class="cart-remove" type="button" data-cart-remove="${item.id}">Sil</button>
         </div>
       </div>
     `;
@@ -2794,17 +2802,20 @@ function renderCart(){
   });
 
   const totals = getCartTotals();
-  cartSubtotalEl.textContent = formatTRY(totals.subtotal);
-  cartShippingEl.textContent = totals.shipping ? formatTRY(totals.shipping) : 'Ücretsiz';
-  cartTotalEl.textContent = formatTRY(totals.total);
-  cartWhatsAppBtn.disabled = cart.length === 0;
+  cartSubtotalEl.textContent = formatPrice(totals.subtotal);
+  cartShippingEl.textContent = totals.shipping ? formatPrice(totals.shipping) : 'Ücretsiz';
+  cartTotalEl.textContent = formatPrice(totals.total);
+  cartCheckoutBtn.disabled = cart.length === 0;
 }
 
 document.addEventListener('click', e=>{
   const addBtn = e.target.closest('.add-btn, .product-add-text');
   if(addBtn){
     e.stopPropagation();
-    addToCart(addBtn.dataset.productId);
+    const product=getProduct(addBtn.dataset.productId);
+    if(!product?.stock) return;
+    if(product.variants.length===1) addToCart(product.id,product.variants[0].id);
+    else openProductModal(product.id);
     return;
   }
   const galleryDot = e.target.closest('[data-detail-image]');
@@ -2821,6 +2832,7 @@ document.addEventListener('click', e=>{
       btn.classList.toggle('is-active', selected);
       btn.setAttribute('aria-pressed', String(selected));
     });
+    syncActiveVariant();
     return;
   }
   const sizeBtn = e.target.closest('.size-option');
@@ -2829,6 +2841,7 @@ document.addEventListener('click', e=>{
     document.querySelectorAll('.size-option').forEach(btn=> btn.classList.remove('is-active'));
     sizeBtn.classList.add('is-active');
     detailSizeWarning.classList.remove('is-visible');
+    syncActiveVariant();
     return;
   }
   const productCard = e.target.closest('.p-card');
@@ -2850,21 +2863,28 @@ document.getElementById('detail-close').addEventListener('click', closeProductMo
 productModal.addEventListener('click', e=>{
   if(e.target === e.currentTarget) closeProductModal();
 });
-detailFavorite.addEventListener('click', ()=>{
+detailFavorite.addEventListener('click', async ()=>{
   if(activeProductId === null) return;
-  if(favorites.has(activeProductId)) favorites.delete(activeProductId);
-  else favorites.add(activeProductId);
+  if(favorites.has(activeProductId)){await favoriteService.remove(activeProductId);favorites.delete(activeProductId);}
+  else{await favoriteService.add(activeProductId);favorites.add(activeProductId);}
   detailFavorite.classList.toggle('is-active', favorites.has(activeProductId));
-  saveFavorites();
+  document.getElementById('favorite-count').textContent=favorites.size;
 });
+detailWhatsApp.addEventListener('click',()=>{
+  const product=getProduct(activeProductId);if(!product)return;
+  window.open(createWhatsAppUrl(`Merhaba, ${product.name} (${activeColor}${activeSize?`, ${activeSize} beden`:''}) hakkında bilgi almak istiyorum.`),'_blank','noopener,noreferrer');
+});
+document.getElementById('detail-quantity-dec').addEventListener('click',()=>{activeQuantity=Math.max(1,activeQuantity-1);detailQuantity.value=String(activeQuantity);detailQuantity.textContent=String(activeQuantity)});
+document.getElementById('detail-quantity-inc').addEventListener('click',()=>{const product=getProduct(activeProductId);const variant=product?.variants.find(item=>item.id===activeVariantId);activeQuantity=Math.min(variant?.stock||1,activeQuantity+1);detailQuantity.value=String(activeQuantity);detailQuantity.textContent=String(activeQuantity)});
 detailAddCart.addEventListener('click', ()=>{
   if(activeProductId === null) return;
   if(!activeSize){
     detailSizeWarning.classList.add('is-visible');
     return;
   }
+  if(!activeVariantId){detailSizeWarning.classList.add('is-visible');return;}
   closeProductModal();
-  addToCart(activeProductId, activeSize, activeColor);
+  addToCart(activeProductId,activeVariantId,activeQuantity);
 });
 document.getElementById('cart-continue-btn').addEventListener('click', closeCart);
 document.getElementById('cart-empty-shop').addEventListener('click', ()=>{
@@ -2872,24 +2892,7 @@ document.getElementById('cart-empty-shop').addEventListener('click', ()=>{
   document.getElementById('urunler').scrollIntoView({ behavior:REDUCED_MOTION ? 'auto' : 'smooth' });
 });
 cartOverlay.addEventListener('click', e=>{ if(e.target === cartOverlay) closeCart(); });
-cartWhatsAppBtn.addEventListener('click', ()=>{
-  if(!cart.length) return;
-  const totals = getCartTotals();
-  const lines = cart.map(item=>{
-    const product = getProduct(item.id);
-    return `• ${product.name} — ${item.color || product.variant}, ${item.size || 'Standart'} beden, ${item.qty} adet`;
-  });
-  const message = [
-    'Merhaba, aşağıdaki ürünler için sipariş oluşturmak istiyorum:',
-    '',
-    ...lines,
-    '',
-    `Toplam: ${formatTRY(totals.total)}`,
-    '',
-    'Stok ve teslimat bilgisi paylaşabilir misiniz?'
-  ].join('\n');
-  window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-});
+cartCheckoutBtn.addEventListener('click',()=>{if(cart.length)window.location.href='checkout.html'});
 renderCart();
 
 /* ---- Mobil menü ---- */
@@ -2905,6 +2908,7 @@ function closeMobile(){
 }
 document.getElementById('btn-hamburger').addEventListener('click', openMobile);
 document.getElementById('mobile-close').addEventListener('click', closeMobile);
+document.getElementById('mobile-cart-link').addEventListener('click',()=>{closeMobile();openCart();});
 mobileMenu.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeMobile));
 mobileMenu.querySelectorAll('.mobile-section-toggle').forEach(toggle=>{
   toggle.addEventListener('click', e=>{
@@ -2948,6 +2952,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
       target.scrollIntoView({ behavior:REDUCED_MOTION ? 'auto' : 'smooth', block:'start' });
     }
   });
+});
+
+document.getElementById('newsletter-form').addEventListener('submit',async event=>{
+  event.preventDefault();
+  const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('newsletter-status');
+  button.disabled=true;button.textContent='Kaydediliyor…';status.textContent='';
+  try{
+    const result=await newsletterService.subscribe(document.getElementById('newsletter-email').value,document.getElementById('newsletter-kvkk').checked);
+    status.textContent=result.message||'Kaydınız alındı.';form.reset();
+  }catch(error){status.textContent=error.message;}
+  finally{button.disabled=false;button.textContent='Kaydol →';}
 });
 
 /* ---- Genel ESC tuşu: açık olan her overlay'i kapatır ---- */
