@@ -1285,7 +1285,13 @@ footer{
 
   .product-modal{ align-items:stretch; }
   .product-modal-panel{ height:100dvh; max-height:100dvh; border:0; }
-  .product-modal-media{ min-height:clamp(210px,34dvh,300px); }
+  .product-modal-media{
+    width:100%;
+    height:clamp(280px,42dvh,380px);
+    min-height:0;
+    aspect-ratio:auto;
+  }
+  .product-modal-media img{ object-position:center 24%; }
   .product-modal-content{ padding:22px 18px 28px; gap:18px; }
   .product-modal-close{
     position:fixed; top:max(12px, env(safe-area-inset-top)); right:12px; z-index:20;
