@@ -1,4 +1,4 @@
-import { apiRequest, toQuery } from './apiClient.js';
+import { apiRequest, normalizeListResponse, toQuery } from './apiClient.js';
 import { usesMockApi } from '../config/env.js';
 import { mockProducts } from '../data/mockProducts.js';
 
@@ -22,7 +22,7 @@ function filterMock(params = {}){
 }
 
 export const productService = {
-  list:params => usesMockApi ? Promise.resolve(filterMock(params)) : apiRequest(`/api/products${toQuery(params)}`),
+  list:async params => usesMockApi ? filterMock(params) : normalizeListResponse(await apiRequest(`/api/products${toQuery(params)}`),params),
   getBySlug:slug => usesMockApi ? Promise.resolve(mockProducts.find(p=>p.slug===slug) || null) : apiRequest(`/api/products/${encodeURIComponent(slug)}`),
   getAdmin:params => apiRequest(`/api/admin/products${toQuery(params)}`),
   createAdmin:payload => apiRequest('/api/admin/products',{method:'POST',body:payload}),

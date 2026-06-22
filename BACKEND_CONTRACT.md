@@ -7,7 +7,8 @@ The storefront reads its base URL from `VITE_API_BASE_URL`, environment from `VI
 - Collection responses: `{ "items": [], "total": 0, "page": 1, "limit": 24, "totalPages": 0 }`
 - Error responses: `{ "message": "User-facing error", "code": "MACHINE_CODE", "fields": {} }`
 - Money values are numeric major currency units and use `currency: "TRY"`.
-- Product cart mutations return the complete current cart item array.
+- Cart and favorite mutations should return the collection response (or `204`; the frontend then refreshes the collection).
+- `PATCH /api/cart/items/:id` accepts `{ "quantity": 2 }`.
 - Admin endpoints must enforce the authenticated user's `role` on the backend.
 
 ## Storefront endpoints
@@ -20,7 +21,14 @@ The storefront reads its base URL from `VITE_API_BASE_URL`, environment from `VI
 - Orders: `POST /api/orders`, `GET /api/orders`, `GET /api/orders/:id`, `PATCH /api/orders/:id/cancel`
 - Payments: `POST /api/payments/create`, `POST /api/payments/verify`, `GET /api/payments/options`
 - Newsletter: `POST /api/newsletter/subscribe`
-- Admin: `/api/admin/products`, `/api/admin/orders`, `/api/admin/customers`, `/api/admin/dashboard`
+- Admin dashboard: `GET /api/admin/dashboard`
+- Admin products: `GET|POST /api/admin/products`, `PATCH|DELETE /api/admin/products/:id`
+- Admin categories: `GET|POST /api/admin/categories`, `PATCH|DELETE /api/admin/categories/:id`
+- Admin orders: `GET /api/admin/orders`, `GET /api/admin/orders/:id`, `PATCH /api/admin/orders/:id/status`
+- Admin customers: `GET /api/admin/customers`
+- Admin newsletter: `GET /api/admin/newsletter`
+- Admin settings: `GET|PATCH /api/admin/settings`
+
+`PATCH /api/admin/orders/:id/status` accepts `{ "status": "preparing" }`. Allowed values are `new`, `preparing`, `shipped`, `delivered`, and `cancelled`.
 
 Product, variant, cart item, order and category payloads are represented directly in `data/mockProducts.js`, `data/mockCategories.js`, `services/cartService.js`, and `checkout.js`.
-

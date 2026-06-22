@@ -2761,7 +2761,7 @@ async function updateQty(id, delta){
   const item = cart.find(entry=>entry.id===id);
   if(!item) return;
   const quantity=item.quantity+delta;
-  cart=quantity<1?await cartService.remove(id):await cartService.update(id,quantity);
+  cart=quantity<1?await cartService.remove(id):await cartService.update(id,{quantity});
   renderCart();
 }
 

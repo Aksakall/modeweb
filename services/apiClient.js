@@ -37,3 +37,16 @@ export function toQuery(params = {}){
   return result ? `?${result}` : '';
 }
 
+export function normalizeListResponse(data, defaults = {}){
+  const page = Number(data?.page ?? defaults.page ?? 1);
+  const limit = Number(data?.limit ?? defaults.limit ?? 24);
+  const items = Array.isArray(data) ? data : Array.isArray(data?.items) ? data.items : [];
+  const total = Number(data?.total ?? items.length);
+  return {
+    items,
+    total,
+    page,
+    limit,
+    totalPages:Number(data?.totalPages ?? Math.ceil(total/Math.max(1,limit)))
+  };
+}

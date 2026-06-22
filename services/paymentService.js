@@ -1,7 +1,6 @@
-import { apiRequest } from './apiClient.js';
+import { apiRequest, normalizeListResponse } from './apiClient.js';
 export const paymentService={
   create:payload=>apiRequest('/api/payments/create',{method:'POST',body:payload}),
   verify:payload=>apiRequest('/api/payments/verify',{method:'POST',body:payload}),
-  options:()=>apiRequest('/api/payments/options')
+  options:async()=>normalizeListResponse(await apiRequest('/api/payments/options'))
 };
-
