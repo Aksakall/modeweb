@@ -37,6 +37,7 @@
 }
 
 *{ margin:0; padding:0; box-sizing:border-box; }
+[hidden]{ display:none !important; }
 
 html{ background:var(--cream); }
 
@@ -279,7 +280,7 @@ button{ min-width:44px; min-height:44px; }
 }
 .user-panel{ position:relative; }
 
-/* ---------- CART / CHECKOUT PANEL ---------- */
+/* ---------- CART / WHATSAPP ORDER PANEL ---------- */
 .cart-overlay{
   position:fixed; inset:0; z-index:310;
   width:100%; height:100dvh;
@@ -325,7 +326,6 @@ button{ min-width:44px; min-height:44px; }
   font-family:'Fraunces',serif; font-size:30px; color:var(--ink); font-weight:400;
 }
 .cart-empty button,
-.checkout-submit,
 .cart-primary{
   border:0; background:var(--wine); color:var(--cream); cursor:pointer;
   padding:14px 16px; font-family:'JetBrains Mono',monospace; font-size:11px;
@@ -388,34 +388,11 @@ button{ min-width:44px; min-height:44px; }
   padding:13px 16px; font-family:'JetBrains Mono',monospace; font-size:11px;
   letter-spacing:.08em; text-transform:uppercase;
 }
-.checkout-form{ display:none; }
-.cart-panel.is-checkout .cart-items-view{ display:none; }
-.cart-panel.is-checkout .checkout-form{ display:block; }
-.checkout-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.checkout-field{ margin-bottom:14px; }
-.checkout-field.full{ grid-column:1/-1; }
-.checkout-field label{
-  display:block; margin-bottom:7px; font-family:'JetBrains Mono',monospace;
-  font-size:10px; letter-spacing:.08em; color:var(--taupe); text-transform:uppercase;
-}
-.checkout-field input,
-.checkout-field textarea{
-  width:100%; border:1px solid var(--line); background:var(--cream); color:var(--ink);
-  padding:12px 13px; font-family:'Inter',sans-serif; font-size:14px; outline:none;
-}
-.checkout-field textarea{ min-height:82px; resize:vertical; }
-.checkout-field input:focus,
-.checkout-field textarea:focus{ border-color:var(--wine); }
 .payment-note{
   margin:12px 0 18px; padding:14px; background:var(--cream-2); color:var(--taupe);
   font-size:13px; line-height:1.55; border-left:3px solid var(--gold);
 }
-.checkout-success{
-  display:none; padding:22px; background:var(--wine); color:var(--cream); margin-bottom:18px;
-}
-.checkout-success strong{ display:block; font-family:'Fraunces',serif; font-size:28px; font-weight:400; margin-bottom:8px; }
 @media (max-width:560px){
-  .checkout-grid{ grid-template-columns:1fr; }
   .cart-item{ grid-template-columns:72px 1fr; }
   .cart-item img{ width:72px; height:96px; }
 }
@@ -752,7 +729,14 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
   .bento{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
   .p-card, .p-card.big, .p-card.small{ grid-column:span 1; }
 }
-@media (max-width:560px){ .bento{ grid-template-columns:1fr; } }
+@media (max-width:560px){
+  .bento{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .p-card .meta{ padding:12px 10px; gap:9px; }
+  .p-card .meta h3{ font-size:19px; }
+  .product-add-text{ display:none; }
+  .p-card .badge{ top:8px; left:8px; max-width:calc(100% - 52px); font-size:8px; padding:5px 7px; }
+  .add-btn{ top:8px; right:8px; width:38px; height:38px; }
+}
 
 .p-card.is-hidden{ display:none; }
 .p-card .img-stack{ position:relative; aspect-ratio:3/4; overflow:hidden; background:var(--cream-2); }
@@ -881,7 +865,7 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
 .product-modal.is-open .product-modal-panel{ transform:translateY(0) scale(1); }
 .product-modal-media{
   position:relative;
-  aspect-ratio:3/4;
+  aspect-ratio:4/5;
   max-height:100%;
   background:var(--cream-2);
   overflow:hidden;
@@ -1268,6 +1252,8 @@ footer{
   nav.is-scrolled{ padding:12px 14px; }
   .nav-logo{ height:30px; flex:0 0 auto; }
   .nav-actions{ gap:0; margin-left:auto; }
+  #btn-search,
+  #btn-user{ display:none; }
   .nav-icon-btn{ width:40px; height:40px; flex:0 0 40px; }
   .nav-icon-btn svg{ width:18px; height:18px; }
   .cart-count{ top:1px; right:1px; }
@@ -1631,7 +1617,7 @@ footer{
 </nav>
 
 <!-- ===================== MOBILE MENU ===================== -->
-<div class="mobile-menu" id="mobile-menu">
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" hidden inert>
   <div class="mobile-menu-inner">
     <button class="overlay-close-x" id="mobile-close" aria-label="Kapat">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -1663,7 +1649,7 @@ footer{
 </div>
 
 <!-- ===================== SEARCH OVERLAY ===================== -->
-<div class="search-overlay" id="search-overlay">
+<div class="search-overlay" id="search-overlay" aria-hidden="true" hidden inert>
   <div class="search-panel">
     <div class="search-row">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -1680,7 +1666,7 @@ footer{
 </div>
 
 <!-- ===================== USER PANEL ===================== -->
-<div class="user-overlay" id="user-overlay">
+<div class="user-overlay" id="user-overlay" aria-hidden="true" hidden inert>
   <div class="user-panel">
     <button class="overlay-close-x" id="user-close" aria-label="Kapat">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -1707,7 +1693,7 @@ footer{
 </div>
 
 <!-- ===================== PRODUCT DETAIL MODAL ===================== -->
-<div class="product-modal" id="product-modal" aria-hidden="true">
+<div class="product-modal" id="product-modal" aria-hidden="true" hidden inert>
   <div class="product-modal-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title">
     <div class="product-modal-media">
       <img id="detail-img" src="" alt="">
@@ -1754,19 +1740,15 @@ footer{
   </div>
 </div>
 
-<!-- ===================== CART / CHECKOUT PANEL ===================== -->
-<div class="cart-overlay" id="cart-overlay">
-  <aside class="cart-panel" id="cart-panel" aria-label="Sepet ve ödeme paneli">
+<!-- ===================== CART PANEL ===================== -->
+<div class="cart-overlay" id="cart-overlay" aria-hidden="true" hidden inert>
+  <aside class="cart-panel" id="cart-panel" aria-label="Sepetim">
     <button class="overlay-close-x" id="cart-close" aria-label="Sepeti kapat">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
     <div class="cart-head">
       <h3 class="font-display">Sepetim</h3>
-      <p>Seçtiğin parçaları buradan düzenleyip ödeme adımına geçebilirsin.</p>
-    </div>
-    <div class="cart-steps">
-      <button class="cart-step is-active" id="step-cart" type="button">01 Sepet</button>
-      <button class="cart-step" id="step-checkout" type="button">02 Ödeme</button>
+      <p>Seçtiğin parçaları düzenle, siparişini WhatsApp üzerinden güvenle tamamla.</p>
     </div>
 
     <div class="cart-body">
@@ -1779,56 +1761,15 @@ footer{
         </div>
       </div>
 
-      <form class="checkout-form" id="checkout-form">
-        <div class="checkout-success" id="checkout-success">
-          <strong>Sipariş alındı.</strong>
-          <span>Bu prototipte gerçek ödeme çekimi yapılmadı; akış başarıyla tamamlandı.</span>
-        </div>
-        <div class="checkout-grid">
-          <div class="checkout-field">
-            <label for="checkout-name">Ad Soyad</label>
-            <input id="checkout-name" name="name" type="text" placeholder="Adınız Soyadınız" required>
-          </div>
-          <div class="checkout-field">
-            <label for="checkout-phone">Telefon</label>
-            <input id="checkout-phone" name="phone" type="tel" placeholder="05xx xxx xx xx" required>
-          </div>
-          <div class="checkout-field full">
-            <label for="checkout-email">E-posta</label>
-            <input id="checkout-email" name="email" type="email" placeholder="ornek@eposta.com" required>
-          </div>
-          <div class="checkout-field full">
-            <label for="checkout-address">Teslimat Adresi</label>
-            <textarea id="checkout-address" name="address" placeholder="Mahalle, cadde, apartman, il/ilçe" required></textarea>
-          </div>
-          <div class="checkout-field full">
-            <label for="checkout-card-name">Kart Üzerindeki İsim</label>
-            <input id="checkout-card-name" name="cardName" type="text" placeholder="Ad Soyad" required>
-          </div>
-          <div class="checkout-field full">
-            <label for="checkout-card-number">Kart Numarası</label>
-            <input id="checkout-card-number" name="cardNumber" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242" required>
-          </div>
-          <div class="checkout-field">
-            <label for="checkout-expiry">Son Kullanma</label>
-            <input id="checkout-expiry" name="expiry" inputmode="numeric" maxlength="5" placeholder="AA/YY" required>
-          </div>
-          <div class="checkout-field">
-            <label for="checkout-cvv">CVV</label>
-            <input id="checkout-cvv" name="cvv" inputmode="numeric" maxlength="4" placeholder="123" required>
-          </div>
-        </div>
-        <div class="payment-note">Kart alanı demo/prototiptir. Gerçek ödeme için iyzico, Stripe veya banka sanal POS entegrasyonu gerekir.</div>
-        <button class="checkout-submit" type="submit">Siparişi Tamamla</button>
-      </form>
     </div>
 
     <div class="cart-summary">
       <div class="summary-row"><span>Ara Toplam</span><strong id="cart-subtotal">₺0,00</strong></div>
       <div class="summary-row"><span>Kargo</span><strong id="cart-shipping">₺0,00</strong></div>
       <div class="summary-row total"><span>Toplam</span><strong id="cart-total">₺0,00</strong></div>
+      <p class="payment-note">Sipariş detayların WhatsApp'a hazır mesaj olarak aktarılır. Ekibimiz stok ve teslimat bilgisini paylaşır.</p>
       <div class="cart-summary-actions">
-        <button class="cart-primary" id="cart-checkout-btn" type="button">Ödemeye Geç</button>
+        <button class="cart-primary" id="cart-whatsapp-btn" type="button">WhatsApp ile Sipariş Ver</button>
         <button class="cart-secondary" id="cart-continue-btn" type="button">Alışverişe Devam Et</button>
       </div>
     </div>
@@ -1855,7 +1796,7 @@ footer{
 <div class="trust-band">
   <div class="trust-item"><p>Ücretsiz Kargo · 1500₺ Üzeri</p></div>
   <div class="trust-item"><p>14 Gün Kolay İade</p></div>
-  <div class="trust-item"><p>Güvenli Ödeme</p></div>
+  <div class="trust-item"><p>WhatsApp ile Sipariş</p></div>
   <div class="trust-item"><p>WhatsApp Destek</p></div>
 </div>
 
@@ -1868,7 +1809,7 @@ footer{
     </div>
     <p class="collection-head-note">
       <strong>Yeni Vitrin</strong>
-      Şal, takım ve elbise seçkisini tek bakışta ayıran; kullanıcıyı boşlukta bırakmadan mağaza akışına sokan görsel bir ara katman.
+      Şal, takım ve elbise seçkisini zarif dokular, zamansız renkler ve rahat kalıplarla bir araya getiren sezon vitrini.
     </p>
   </div>
 
@@ -1900,20 +1841,20 @@ footer{
         <p>Görsel boşluk yerine koleksiyonun kumaş, renk ve duruş hissini ilk bakışta veren editorial bir vitrin alanı.</p>
         <div class="collection-actions">
           <span>Giyim Koleksiyonuna Git</span>
-          <span>Yeni Sezon Referansı</span>
+          <span>Yeni Sezon</span>
         </div>
       </div>
     </a>
     <div class="collection-side">
       <a class="collection-mini-card" href="sallar.html" aria-label="Şal koleksiyonunu incele">
-        <img src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 40vw" alt="Tesettür şal koleksiyonu referansı" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 40vw" alt="Tesettür şal koleksiyonu" loading="lazy">
         <div class="collection-copy">
           <span class="label">Şallar</span>
           <h3>Dokuda sakin lüks</h3>
         </div>
       </a>
       <a class="collection-mini-card" href="indirim.html" aria-label="İndirim koleksiyonunu incele">
-        <img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 40vw" alt="Tesettür indirim seçkisi referansı" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 40vw" alt="Tesettür indirim seçkisi" loading="lazy">
         <div class="collection-copy">
           <span class="label">Sezon Finali</span>
           <h3>İndirimli parçalar</h3>
@@ -2023,7 +1964,7 @@ footer{
   </div>
   <div class="footer-bottom">
     <span>© 2026 Sıla Sarıoğlu — Tüm Hakları Saklıdır.</span>
-    <span>Tasarım &amp; Geliştirme — Stüdyo Prototipi</span>
+    <span>Zamansız parçalar · Özenli seçimler</span>
   </div>
 </footer>
 
@@ -2257,14 +2198,8 @@ if(!REDUCED_MOTION){
 }
 
 /* =====================================================================
-   SİSTEM 5 — ÜRÜN KARTLARI (gerçek katalogdan, bento yerleşim + reveal)
-   Not: Bu prototipte görseller temsilî stok fotoğraflardır; üretime
-   geçişte gerçek ürün fotoğraflarının URL'leriyle birebir değiştirilir.
+   SİSTEM 5 — ÜRÜN KATALOĞU
 ===================================================================== */
-// Not: Görseller şu an Unsplash üzerinden temsilî (placeholder) moda
-// fotoğraflarıdır — gerçek ürün çekimleri değildir. Üretime geçişte
-// PRODUCTS dizisindeki a/b alanlarını gerçek ürün görsel URL'leri ile
-// (veya yerel /public/images yoluyla) değiştirin.
 const PRODUCTS = [
   { name:'Noir Abaya Takım', variant:'Bordo', category:'giyim', categoryLabel:'Giyim / Takım', sale:true, price:'2.050,00', old:'2.500,00', badge:'%18 İndirim', size:'big',
     sizes:['S','M','L','XL'], desc:'Akışkan kumaşı ve tok bordo tonu ile özel günlerden günlük kullanıma uzanan zarif bir abaya takım.',
@@ -2296,6 +2231,36 @@ const PRODUCTS = [
     features:['Keten görünümlü doku','Ferah kullanım','Standart boy','Günlük kombinlere uygun'],
     a:'https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop',
     b:'https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop' },
+  { name:'Alya Krep Tunik', variant:'Taş', category:'giyim', categoryLabel:'Giyim / Tunik', sale:false, price:'1.590,00', old:'1.850,00', badge:'Yeni Sezon', size:'small',
+    sizes:['S','M','L','XL'], desc:'Duru taş tonu ve akışkan krep dokusuyla gün boyu konfor sunan modern tunik.',
+    features:['Krep dokulu kumaş','Yırtmaç detayı','Rahat kalıp','Kolay kombinlenir'],
+    a:'https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1000&auto=format&fit=crop',
+    b:'https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop' },
+  { name:'Lina Piliseli Etek', variant:'Kahve', category:'giyim', categoryLabel:'Giyim / Etek', sale:false, price:'1.450,00', old:'1.750,00', badge:'Yeni Sezon', size:'small',
+    sizes:['S','M','L'], desc:'Akıcı piliseleri ve sıcak kahve tonuyla gündüzden akşama uyum sağlayan zarif etek.',
+    features:['Kalıcı pilise','Esnek bel','Astarlı yapı','Mevsimlik kullanım'],
+    a:'https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1000&auto=format&fit=crop',
+    b:'https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop' },
+  { name:'Mira Pamuk Şal', variant:'Krem', category:'sal', categoryLabel:'Şallar / Pamuk', sale:false, price:'849,90', old:'949,90', badge:'Çok Sevilen', size:'small',
+    sizes:['Standart'], desc:'Nefes alan pamuk dokusu ve yumuşak krem tonuyla günlük kombinlerin doğal tamamlayıcısı.',
+    features:['Pamuklu doku','Standart ölçü','Hafif yapı','Günlük kullanıma uygun'],
+    a:'https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1000&auto=format&fit=crop',
+    b:'https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1000&auto=format&fit=crop' },
+  { name:'Sera Saten Şal', variant:'Siyah', category:'sal', categoryLabel:'Şallar / Saten', sale:true, price:'1.050,00', old:'1.250,00', badge:'%16 İndirim', size:'small',
+    sizes:['Standart'], desc:'Işığı zarifçe yansıtan saten yüzeyiyle davet görünümlerine rafine bir dokunuş katar.',
+    features:['Saten yüzey','Tok duruş','Standart ölçü','Özel gün seçkisi'],
+    a:'https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop',
+    b:'https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1000&auto=format&fit=crop' },
+  { name:'Nora Kuşaklı Abaya', variant:'Antrasit', category:'giyim', categoryLabel:'Giyim / Abaya', sale:false, price:'2.350,00', old:'2.650,00', badge:'Yeni Sezon', size:'small',
+    sizes:['S','M','L','XL'], desc:'Antrasit tonun güçlü sadeliğini kuşak detayı ve uzun siluetle tamamlayan şehirli abaya.',
+    features:['Kuşaklı form','Uzun siluet','Dökümlü kumaş','Astarsız hafif yapı'],
+    a:'https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop',
+    b:'https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop' },
+  { name:'Ecrin Vual Elbise', variant:'Gül Kurusu', category:'giyim', categoryLabel:'Giyim / Elbise', sale:false, price:'2.190,00', old:'2.490,00', badge:'Yeni Sezon', size:'small',
+    sizes:['S','M','L'], desc:'Gül kurusu tonu, hafif vual katları ve dengeli hacmiyle özel anlara eşlik eden elbise.',
+    features:['Vual katman','Astarlı gövde','Bilek boy kol','Rahat kesim'],
+    a:'https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1000&auto=format&fit=crop',
+    b:'https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1000&auto=format&fit=crop' },
 ];
 
 const bento = document.getElementById('bento-grid');
@@ -2377,8 +2342,8 @@ PRODUCTS.forEach((p, i)=>{
   card.dataset.sale = p.sale ? 'true' : 'false';
   card.innerHTML = `
     <div class="img-stack">
-      <img class="img-a" src="${imageAtWidth(p.a, 1200)}" srcset="${responsiveImageSet(p.a)}" sizes="(max-width:768px) 100vw, 50vw" alt="${p.name}" loading="lazy">
-      <img class="img-b" src="${imageAtWidth(p.b, 1200)}" srcset="${responsiveImageSet(p.b)}" sizes="(max-width:768px) 100vw, 50vw" alt="${p.name} - detay" loading="lazy">
+      <img class="img-a" src="${imageAtWidth(p.a, 1200)}" srcset="${responsiveImageSet(p.a)}" sizes="(max-width:900px) 50vw, 25vw" alt="${p.name}" loading="lazy">
+      <img class="img-b" src="${imageAtWidth(p.b, 1200)}" srcset="${responsiveImageSet(p.b)}" sizes="(max-width:900px) 50vw, 25vw" alt="${p.name} - detay" loading="lazy">
     </div>
     <span class="badge">${p.badge}</span>
     <button class="add-btn" type="button" aria-label="${p.name} ürününü sepete ekle" data-product-id="${i}">＋</button>
@@ -2429,14 +2394,12 @@ function openProductModal(productId){
   detailFeatures.innerHTML = product.features.map(feature => `<li>${feature}</li>`).join('');
   detailFavorite.classList.toggle('is-active', favorites.has(activeProductId));
   detailSizeWarning.classList.remove('is-visible');
-  productModal.classList.add('is-open');
-  productModal.setAttribute('aria-hidden', 'false');
+  showOverlay(productModal);
   lockScroll(true);
 }
 
 function closeProductModal(){
-  productModal.classList.remove('is-open');
-  productModal.setAttribute('aria-hidden', 'true');
+  hideOverlay(productModal);
   if(!cartOverlay?.classList.contains('is-open')) lockScroll(false);
 }
 
@@ -2578,6 +2541,28 @@ window.addEventListener('scroll', ()=>{
 
 let lockedScrollY = 0;
 let bodyScrollLocked = false;
+const overlayHideTimers = new WeakMap();
+
+function showOverlay(element){
+  if(!element) return;
+  clearTimeout(overlayHideTimers.get(element));
+  element.hidden = false;
+  element.inert = false;
+  element.setAttribute('aria-hidden', 'false');
+  void element.offsetWidth;
+  element.classList.add('is-open');
+}
+
+function hideOverlay(element){
+  if(!element) return;
+  element.classList.remove('is-open');
+  element.inert = true;
+  element.setAttribute('aria-hidden', 'true');
+  const timer = setTimeout(()=>{
+    if(!element.classList.contains('is-open')) element.hidden = true;
+  }, 460);
+  overlayHideTimers.set(element, timer);
+}
 
 function hasOpenOverlay(){
   return Boolean(document.querySelector(
@@ -2636,13 +2621,13 @@ menuWraps.forEach(wrap=>{
 const searchOverlay = document.getElementById('search-overlay');
 const searchInput = document.getElementById('search-input');
 function openSearch(){
-  searchOverlay.classList.add('is-open');
-  document.getElementById('user-overlay').classList.remove('is-open');
+  hideOverlay(document.getElementById('user-overlay'));
+  showOverlay(searchOverlay);
   lockScroll(true);
   setTimeout(()=> searchInput.focus(), 350);
 }
 function closeSearch(){
-  searchOverlay.classList.remove('is-open');
+  hideOverlay(searchOverlay);
   lockScroll(false);
 }
 document.getElementById('btn-search').addEventListener('click', openSearch);
@@ -2655,11 +2640,11 @@ document.querySelectorAll('.search-suggest button').forEach(tag=>{
 /* ---- Kullanıcı paneli (giriş / üye ol) ---- */
 const userOverlay = document.getElementById('user-overlay');
 function openUser(){
-  userOverlay.classList.add('is-open');
-  searchOverlay.classList.remove('is-open');
+  hideOverlay(searchOverlay);
+  showOverlay(userOverlay);
   lockScroll(true);
 }
-function closeUser(){ userOverlay.classList.remove('is-open'); lockScroll(false); }
+function closeUser(){ hideOverlay(userOverlay); lockScroll(false); }
 document.getElementById('btn-user').addEventListener('click', openUser);
 document.getElementById('user-close').addEventListener('click', closeUser);
 userOverlay.addEventListener('click', e=>{ if(e.target===userOverlay) closeUser(); });
@@ -2679,7 +2664,7 @@ userTabs.forEach(tab=>{
 formLogin.style.display = 'flex'; formLogin.style.flexDirection = 'column';
 formRegister.style.flexDirection = 'column';
 
-/* ---- Sepet + ödeme akışı ---- */
+/* ---- Sepet + WhatsApp sipariş akışı ---- */
 const cartCountEl = document.getElementById('cart-count');
 const cartOverlay = document.getElementById('cart-overlay');
 const cartPanel = document.getElementById('cart-panel');
@@ -2688,11 +2673,7 @@ const cartEmptyEl = document.getElementById('cart-empty');
 const cartSubtotalEl = document.getElementById('cart-subtotal');
 const cartShippingEl = document.getElementById('cart-shipping');
 const cartTotalEl = document.getElementById('cart-total');
-const cartCheckoutBtn = document.getElementById('cart-checkout-btn');
-const stepCart = document.getElementById('step-cart');
-const stepCheckout = document.getElementById('step-checkout');
-const checkoutForm = document.getElementById('checkout-form');
-const checkoutSuccess = document.getElementById('checkout-success');
+const cartWhatsAppBtn = document.getElementById('cart-whatsapp-btn');
 const CART_STORAGE_KEY = 'sila-cart-v1';
 let cart = loadCart();
 
@@ -2735,23 +2716,14 @@ function getCartTotals(){
   return { subtotal, shipping, total:subtotal + shipping };
 }
 
-function openCart(step='cart'){
-  cartOverlay.classList.add('is-open');
+function openCart(){
+  showOverlay(cartOverlay);
   lockScroll(true);
-  setCartStep(step);
 }
 
 function closeCart(){
-  cartOverlay.classList.remove('is-open');
+  hideOverlay(cartOverlay);
   lockScroll(false);
-}
-
-function setCartStep(step){
-  const checkout = step === 'checkout';
-  cartPanel.classList.toggle('is-checkout', checkout);
-  stepCart.classList.toggle('is-active', !checkout);
-  stepCheckout.classList.toggle('is-active', checkout);
-  cartCheckoutBtn.textContent = checkout ? 'Sepete Geri Dön' : 'Ödemeye Geç';
 }
 
 function addToCart(id, size='Standart', color=''){
@@ -2768,7 +2740,7 @@ function addToCart(id, size='Standart', color=''){
   else{ cart.push({ id:Number(id), size:selectedSize, color:selectedColor, qty:1 }); }
   saveCart();
   renderCart();
-  openCart('cart');
+  openCart();
   gsap.fromTo('#btn-cart', { scale:1 }, { scale:1.25, duration:0.18, yoyo:true, repeat:1, ease:'power2.out' });
 }
 
@@ -2825,9 +2797,7 @@ function renderCart(){
   cartSubtotalEl.textContent = formatTRY(totals.subtotal);
   cartShippingEl.textContent = totals.shipping ? formatTRY(totals.shipping) : 'Ücretsiz';
   cartTotalEl.textContent = formatTRY(totals.total);
-  stepCheckout.disabled = cart.length === 0;
-  cartCheckoutBtn.disabled = cart.length === 0;
-  if(cart.length === 0 && checkoutSuccess.style.display !== 'block') setCartStep('cart');
+  cartWhatsAppBtn.disabled = cart.length === 0;
 }
 
 document.addEventListener('click', e=>{
@@ -2874,7 +2844,7 @@ document.addEventListener('click', e=>{
   if(remove){ removeFromCart(remove.dataset.cartRemove); }
 });
 
-document.getElementById('btn-cart').addEventListener('click', ()=> openCart('cart'));
+document.getElementById('btn-cart').addEventListener('click', openCart);
 document.getElementById('cart-close').addEventListener('click', closeCart);
 document.getElementById('detail-close').addEventListener('click', closeProductModal);
 productModal.addEventListener('click', e=>{
@@ -2902,29 +2872,31 @@ document.getElementById('cart-empty-shop').addEventListener('click', ()=>{
   document.getElementById('urunler').scrollIntoView({ behavior:REDUCED_MOTION ? 'auto' : 'smooth' });
 });
 cartOverlay.addEventListener('click', e=>{ if(e.target === cartOverlay) closeCart(); });
-stepCart.addEventListener('click', ()=> setCartStep('cart'));
-stepCheckout.addEventListener('click', ()=>{ if(cart.length) setCartStep('checkout'); });
-cartCheckoutBtn.addEventListener('click', ()=>{
+cartWhatsAppBtn.addEventListener('click', ()=>{
   if(!cart.length) return;
-  if(cartPanel.classList.contains('is-checkout')) setCartStep('cart');
-  else setCartStep('checkout');
-});
-checkoutForm.addEventListener('submit', e=>{
-  e.preventDefault();
-  checkoutSuccess.style.display = 'block';
-  cart = [];
-  saveCart();
-  renderCart();
-  checkoutForm.reset();
-  setTimeout(()=> setCartStep('cart'), 1800);
+  const totals = getCartTotals();
+  const lines = cart.map(item=>{
+    const product = getProduct(item.id);
+    return `• ${product.name} — ${item.color || product.variant}, ${item.size || 'Standart'} beden, ${item.qty} adet`;
+  });
+  const message = [
+    'Merhaba, aşağıdaki ürünler için sipariş oluşturmak istiyorum:',
+    '',
+    ...lines,
+    '',
+    `Toplam: ${formatTRY(totals.total)}`,
+    '',
+    'Stok ve teslimat bilgisi paylaşabilir misiniz?'
+  ].join('\n');
+  window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
 });
 renderCart();
 
 /* ---- Mobil menü ---- */
 const mobileMenu = document.getElementById('mobile-menu');
-function openMobile(){ mobileMenu.classList.add('is-open'); lockScroll(true); }
+function openMobile(){ showOverlay(mobileMenu); lockScroll(true); }
 function closeMobile(){
-  mobileMenu.classList.remove('is-open');
+  hideOverlay(mobileMenu);
   mobileMenu.querySelectorAll('.mobile-section.is-open').forEach(section=>{
     section.classList.remove('is-open');
     section.querySelector('.mobile-section-toggle')?.setAttribute('aria-expanded', 'false');

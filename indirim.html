@@ -21,7 +21,7 @@
   <button class="hamburger" id="menu-open" aria-label="Menü"><span></span><span></span><span></span></button>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu">
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" hidden inert>
   <button class="mobile-close" id="menu-close" aria-label="Kapat">×</button>
   <div class="mobile-section"><span>Mağaza</span><a href="sallar.html">Şallar</a><a href="giyim.html">Giyim</a><a href="index.html">Ana Sayfa</a></div>
   <div class="mobile-section"><span>İndirim</span><a href="#takimlar">Takımlar</a><a href="#elbiseler">Elbiseler</a><a href="#sallar">Şallar</a></div>
@@ -31,17 +31,17 @@
   <section class="page-hero">
     <div class="hero-copy">
       <span class="eyebrow">Sezon Finali</span>
-      <h1>İndirim sayfası artık eski tasarıma düşmüyor.</h1>
-      <p class="lead">İndirim alanı ayrı bir mağaza sayfası olarak tasarlandı. Büyük referans görsel, hızlı kategori geçişleri ve ürün kartlarıyla boş ekran hissi yok.</p>
+      <h1>Sevilen parçalar, sezonun en özel fiyatları.</h1>
+      <p class="lead">Sınırlı beden ve renk seçenekleriyle takım, elbise ve şallarda sezon finali fırsatlarını keşfedin.</p>
       <div class="hero-actions"><a class="btn" href="#urunler">İndirimleri Gör</a><a class="btn ghost" href="giyim.html">Giyime Git</a></div>
     </div>
-    <div class="hero-media"><img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1600&auto=format&fit=crop" alt="Tesettür indirim referans görseli"></div>
+    <div class="hero-media"><img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1600&auto=format&fit=crop" alt="İndirimli tesettür giyim koleksiyonu"></div>
   </section>
 
   <section class="section">
     <div class="section-head">
       <h2 class="section-title">İndirim kategorileri</h2>
-      <p class="section-copy">Sayfanın ilk bölümünde kullanıcıyı doğrudan indirim kategorilerine alıyoruz; her kategori görsel ve oran hissiyle ayrılıyor.</p>
+      <p class="section-copy">Takım, elbise ve şallarda seçili ürünleri kategoriye göre inceleyin; favori parçanızı tükenmeden seçin.</p>
     </div>
     <div class="category-grid">
       <a class="visual-card" id="takimlar" href="#urunler"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop" alt="İndirimli tesettür takımlar"><span class="tag">%71'e varan</span><div class="visual-card-body"><h2>Takımlar</h2><p>Sezon finalinde sınırlı bedenlerde güçlü indirim.</p></div></a>
@@ -51,12 +51,12 @@
   </section>
 
   <section class="reference-strip">
-    <figure><img src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1400&auto=format&fit=crop" alt="İndirimli tesettür koleksiyon referansı"></figure>
-    <div class="reference-note"><span class="eyebrow">Referans Görsel</span><h2>Sezon finali, aynı marka diliyle ayrı bir sayfa.</h2><p>Bu alan eski sayfa kırılmasını hissettirmeden kullanıcıyı indirim ürünlerine taşır.</p></div>
+    <figure><img src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1400&auto=format&fit=crop" alt="İndirimli tesettür koleksiyonu kombini"></figure>
+    <div class="reference-note"><span class="eyebrow">Sezon Seçkisi</span><h2>Zamansız parçalar, ayrıcalıklı final fiyatları.</h2><p>Gardırobunuzda uzun süre yer bulacak rafine tasarımları sezon bitmeden keşfedin.</p></div>
   </section>
 
   <section class="section" id="urunler">
-    <div class="section-head"><h2 class="section-title">İndirimde öne çıkanlar</h2><p class="section-copy">Ürün kartları temsilidir; katalog entegrasyonunda gerçek ürün detaylarıyla değiştirilebilir.</p></div>
+    <div class="section-head"><h2 class="section-title">İndirimde öne çıkanlar</h2><p class="section-copy">Sezonun en çok ilgi gören parçalarında sınırlı stok ve seçili beden fırsatları.</p></div>
     <div class="product-grid">
       <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=800&auto=format&fit=crop" alt="Louve Vual Takım"></div><div class="product-meta"><h3>Louve Vual Takım<span class="variant">%71 İndirim</span></h3><div class="price">₺999,00<span class="old">₺3.500,00</span></div></div></article>
       <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=800&auto=format&fit=crop" alt="Mila Vual Elbise"></div><div class="product-meta"><h3>Mila Vual Elbise<span class="variant">%50 İndirim</span></h3><div class="price">₺1.999,00<span class="old">₺4.000,00</span></div></div></article>
@@ -66,7 +66,7 @@
   </section>
 </main>
 
-<footer class="footer"><span>© 2026 Sıla Sarıoğlu</span><span>İndirim sayfası prototipi</span></footer>
+<footer class="footer"><span>© 2026 Sıla Sarıoğlu</span><span>Sezon finali · Sınırlı stok</span></footer>
 <script src="category-pages.js"></script>
 </body>
 </html>

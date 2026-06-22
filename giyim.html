@@ -21,7 +21,7 @@
   <button class="hamburger" id="menu-open" aria-label="Menü"><span></span><span></span><span></span></button>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu">
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" hidden inert>
   <button class="mobile-close" id="menu-close" aria-label="Kapat">×</button>
   <div class="mobile-section"><span>Giyim</span><a href="#ust">Üst Giyim</a><a href="#alt">Alt Giyim</a><a href="#iclik">İçlik</a><a href="#takim">Takım</a><a href="#elbise">Elbise</a></div>
   <div class="mobile-section"><span>Diğer</span><a href="sallar.html">Şallar</a><a href="indirim.html">İndirim</a><a href="index.html">Ana Sayfa</a></div>
@@ -32,16 +32,16 @@
     <div class="hero-copy">
       <span class="eyebrow">Giyim Atölyesi</span>
       <h1>Katman değil, ölçülü bir bütünlük.</h1>
-      <p class="lead">Üst giyim, alt giyim, içlik, takım ve elbise kategorileri artık eski siteye dönmeden kendi mağaza sayfasında açılıyor. İlk ekranda referans görsel, devamında kategori ve ürün kartları var.</p>
+      <p class="lead">Tunikten takıma, etekten elbiseye; ölçülü siluetleri yumuşak dokular ve zamansız renklerle buluşturan seçki.</p>
       <div class="hero-actions"><a class="btn" href="#kategoriler">Giyim Kategorileri</a><a class="btn ghost" href="index.html">Ana Sayfa</a></div>
     </div>
-    <div class="hero-media"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1600&auto=format&fit=crop" alt="Tesettür giyim referans görseli"></div>
+    <div class="hero-media"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1600&auto=format&fit=crop" alt="Bordo tesettür giyim koleksiyonu"></div>
   </section>
 
   <section class="section" id="kategoriler">
     <div class="section-head">
       <h2 class="section-title">Giyim kategorileri</h2>
-      <p class="section-copy">Kategoriler tek satır link gibi değil, gerçek mağaza vitrini gibi tasarlandı. Her kart görsel, başlık ve kısa kullanım hissi taşır.</p>
+      <p class="section-copy">Günün farklı anlarına eşlik eden rahat kalıpları, dengeli renk paletleriyle kategorilere göre keşfedin.</p>
     </div>
     <div class="category-grid">
       <a class="visual-card" id="ust" href="#urunler"><img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop" alt="Tesettür üst giyim"><span class="tag">Üst Giyim</span><div class="visual-card-body"><h2>Tunik, gömlek ve ceket</h2><p>Tek başına güçlü, takımla beraber sakin duran üst parçalar.</p></div></a>
@@ -49,17 +49,17 @@
       <a class="visual-card" id="iclik" href="#urunler"><img src="https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1000&auto=format&fit=crop" alt="Tesettür içlik"><span class="tag">İçlik</span><div class="visual-card-body"><h2>Temel katman</h2><p>Görünümü tamamlayan ince ve yumuşak dokular.</p></div></a>
       <a class="visual-card" id="takim" href="#urunler"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1000&auto=format&fit=crop" alt="Tesettür takım"><span class="tag">Takım</span><div class="visual-card-body"><h2>Hazır uyum</h2><p>Tek hamlede tamamlanan dengeli kombinler.</p></div></a>
       <a class="visual-card" id="elbise" href="#urunler"><img src="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1000&auto=format&fit=crop" alt="Tesettür elbise"><span class="tag">Elbise</span><div class="visual-card-body"><h2>Tek parça zarafet</h2><p>Gündüzden akşama taşınabilen sade elbiseler.</p></div></a>
-      <a class="visual-card" href="indirim.html"><img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop" alt="Tesettür indirim referansı"><span class="tag">Sezon Finali</span><div class="visual-card-body"><h2>İndirimli parçalar</h2><p>Giyim koleksiyonunun seçili sezon ürünleri.</p></div></a>
+      <a class="visual-card" href="indirim.html"><img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1000&auto=format&fit=crop" alt="İndirimli tesettür giyim seçkisi"><span class="tag">Sezon Finali</span><div class="visual-card-body"><h2>İndirimli parçalar</h2><p>Giyim koleksiyonunun seçili sezon ürünleri.</p></div></a>
     </div>
   </section>
 
   <section class="reference-strip">
-    <figure><img src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1400&auto=format&fit=crop" alt="Tesettür giyim kombin referansı"></figure>
-    <div class="reference-note"><span class="eyebrow">Referans Görsel</span><h2>Sayfa boş değil; koleksiyon atmosferi ilk bakışta kuruluyor.</h2><p>Gerçek ürün çekimleri geldiğinde bu görseller aynı ölçülerde değiştirilebilir.</p></div>
+    <figure><img src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1400&auto=format&fit=crop" alt="Katmanlı tesettür giyim kombini"></figure>
+    <div class="reference-note"><span class="eyebrow">Stil Notu</span><h2>Akışkan katmanlar, sakin ve güçlü bir siluet.</h2><p>Ton sür ton parçaları farklı dokularla birleştirerek zahmetsiz bir bütünlük yakalayın.</p></div>
   </section>
 
   <section class="section" id="urunler">
-    <div class="section-head"><h2 class="section-title">Öne çıkan giyim</h2><p class="section-copy">Kartlar fiyat, eski fiyat ve varyant alanlarıyla katalog yapısına hazır.</p></div>
+    <div class="section-head"><h2 class="section-title">Öne çıkan giyim</h2><p class="section-copy">Sezonun en sevilen takım ve elbiselerini renk ve fiyat seçenekleriyle inceleyin.</p></div>
     <div class="product-grid">
       <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=800&auto=format&fit=crop" alt="Noir Abaya Takım"></div><div class="product-meta"><h3>Noir Abaya Takım<span class="variant">Bordo</span></h3><div class="price">₺2.050,00<span class="old">₺2.500,00</span></div></div></article>
       <article class="product-card"><div class="product-img"><img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=800&auto=format&fit=crop" alt="Louve Vual Takım"></div><div class="product-meta"><h3>Louve Vual Takım<span class="variant">Küf Yeşili</span></h3><div class="price">₺999,00<span class="old">₺3.500,00</span></div></div></article>
@@ -69,7 +69,7 @@
   </section>
 </main>
 
-<footer class="footer"><span>© 2026 Sıla Sarıoğlu</span><span>Giyim kategori prototipi</span></footer>
+<footer class="footer"><span>© 2026 Sıla Sarıoğlu</span><span>Zamansız giyim · Özenli seçimler</span></footer>
 <script src="category-pages.js"></script>
 </body>
 </html>
