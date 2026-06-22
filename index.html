@@ -165,7 +165,8 @@ nav .nav-link:hover::after{ width:100%; }
 .nav-actions{ display:flex; align-items:center; gap:clamp(10px,1.6vw,20px); }
 .nav-icon-btn{
   background:none; border:none; cursor:pointer; color:var(--cream);
-  width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  width:44px; height:44px; min-width:44px; min-height:44px;
+  display:flex; align-items:center; justify-content:center;
   position:relative; transition:color .4s ease, transform .25s var(--ease-out-expo);
 }
 nav.is-scrolled .nav-icon-btn{ color:var(--ink); }
@@ -209,14 +210,15 @@ nav.is-scrolled .nav-icon-btn{ color:var(--ink); }
 .search-close{
   background:none; border:none; cursor:pointer; color:var(--taupe);
   font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em;
+  min-width:44px; min-height:44px;
 }
 .search-suggest{ margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
-.search-suggest span{
+.search-suggest button{
   font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.04em;
   color:var(--wine); background:var(--cream-2); padding:7px 12px; border-radius:100px;
-  cursor:pointer; transition:background .2s ease;
+  border:0; cursor:pointer; transition:background .2s ease;
 }
-.search-suggest span:hover{ background:var(--wine); color:var(--cream); }
+.search-suggest button:hover{ background:var(--wine); color:var(--cream); }
 
 /* ---------- USER PANEL (login / register) ---------- */
 .user-overlay{
@@ -267,7 +269,13 @@ nav.is-scrolled .nav-icon-btn{ color:var(--ink); }
 .overlay-close-x{
   position:absolute; top:24px; right:24px; z-index:5;
   background:none; border:none; cursor:pointer; color:var(--taupe);
-  width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  width:44px; height:44px; min-width:44px; min-height:44px;
+  display:flex; align-items:center; justify-content:center;
+}
+button{ min-width:44px; min-height:44px; }
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 .user-panel{ position:relative; }
 
@@ -323,6 +331,11 @@ nav.is-scrolled .nav-icon-btn{ color:var(--ink); }
   padding:14px 16px; font-family:'JetBrains Mono',monospace; font-size:11px;
   letter-spacing:.08em; text-transform:uppercase;
 }
+.cart-primary:disabled,
+.cart-step:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
 .cart-item{
   display:grid; grid-template-columns:86px 1fr; gap:14px;
   padding:0 0 18px; margin-bottom:18px; border-bottom:1px solid var(--line);
@@ -347,7 +360,8 @@ nav.is-scrolled .nav-icon-btn{ color:var(--ink); }
   display:flex; align-items:center; border:1px solid var(--line); background:var(--cream);
 }
 .qty-control button{
-  width:34px; height:32px; border:0; background:transparent; cursor:pointer;
+  width:44px; height:44px; min-width:44px; min-height:44px;
+  border:0; background:transparent; cursor:pointer;
   color:var(--wine); font-size:17px;
 }
 .qty-control span{
@@ -430,6 +444,17 @@ nav.is-scrolled .nav-icon-btn{ color:var(--ink); }
   border-bottom:1px solid var(--line);
 }
 .mobile-link-strong{ font-weight:500; color:var(--wine) !important; }
+.mobile-section-toggle{
+  width:100%; min-height:44px; padding:0;
+  display:flex; align-items:center; justify-content:space-between;
+  border:0; background:transparent; color:var(--wine); cursor:pointer;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.mobile-section-toggle::after{ content:'+'; font-size:18px; font-weight:300; }
+.mobile-section.is-open .mobile-section-toggle::after{ content:'−'; }
+.mobile-submenu{ display:none; }
+.mobile-section.is-open .mobile-submenu{ display:block; }
 
 /* =====================================================================
    HERO — Three.js cloth scene + kinetic typography
@@ -736,9 +761,12 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
   transition:opacity .6s var(--ease-in-out), transform 1.1s var(--ease-out-expo);
 }
 .p-card img.img-b{ opacity:0; }
-.p-card:hover img.img-a{ opacity:0; }
-.p-card:hover img.img-b{ opacity:1; }
-.p-card:hover img{ transform:scale(1.045); }
+@media (hover:hover) and (pointer:fine){
+  .p-card:hover img.img-a{ opacity:0; }
+  .p-card:hover img.img-b{ opacity:1; }
+  .p-card:hover img{ transform:scale(1.045); }
+}
+.p-card:active img{ transform:scale(1.025); }
 
 .p-card .badge{
   position:absolute; top:14px; left:14px; z-index:3;
@@ -813,7 +841,10 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
   box-shadow:0 10px 30px rgba(42,20,20,.14);
   transform:scale(1); transition:transform .4s var(--ease-out-expo), background .25s ease, color .25s ease;
 }
-.p-card:hover .add-btn{ transform:scale(1.05); background:var(--wine); color:var(--cream); }
+@media (hover:hover) and (pointer:fine){
+  .p-card:hover .add-btn{ transform:scale(1.05); background:var(--wine); color:var(--cream); }
+}
+.p-card:active .add-btn{ transform:scale(.96); background:var(--wine); color:var(--cream); }
 @media (max-width:620px){
   .product-card-footer{ align-items:start; flex-direction:column; }
   .product-add-text{ width:100%; }
@@ -1125,6 +1156,7 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
 }
 .showcase-item{
   position:relative; aspect-ratio:3/4; overflow:hidden; background:var(--cream);
+  display:block; width:100%; height:100%; color:inherit; text-decoration:none;
 }
 .showcase-item img{
   width:100%; height:100%; object-fit:cover;
@@ -1137,7 +1169,10 @@ section[id], .product-shelf[id]{ scroll-margin-top:76px; }
   font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.06em;
   background:rgba(46,14,15,0.55); padding:5px 10px; backdrop-filter:blur(6px);
 }
-@media (max-width:760px){ .showcase-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:760px){
+  .showcase-grid{ grid-template-columns:repeat(2,1fr); }
+  .showcase-item .tag{ font-size:14px; }
+}
 
 /* =====================================================================
    NEWSLETTER / CTA BAND
@@ -1198,7 +1233,7 @@ footer{
   font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--taupe);
   flex-wrap:wrap; gap:10px;
 }
-@media (max-width:760px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:768px){ .footer-grid{ grid-template-columns:1fr; gap:30px; } }
 
 /* =====================================================================
    MOBILE LAYOUT — compact, touch-friendly and overflow-safe
@@ -1238,8 +1273,8 @@ footer{
   .section-title{ font-size:clamp(32px,10vw,44px); }
   .collection-head-note,
   .product-shelf-copy{ font-size:14px; line-height:1.6; }
-  .collection-quickbar{ margin-inline:0; }
-  .quickbar-cell{ min-height:82px; padding:16px; }
+  .collection-quickbar{ display:flex; flex-direction:column; margin-inline:0; }
+  .quickbar-cell{ width:100%; min-height:82px; padding:16px; }
 
   .collection-feature,
   .collection-side{ gap:12px; }
@@ -1255,8 +1290,13 @@ footer{
   .product-shelf-head{ gap:14px; }
   .product-shelf-title{ font-size:38px; }
   .product-tools{ align-items:stretch; gap:12px; }
-  .product-filters{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; }
-  .filter-btn{ min-height:42px; padding:9px 8px; }
+  .product-filters{
+    display:flex; flex-wrap:nowrap; gap:8px; width:100%;
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; overscroll-behavior-inline:contain;
+  }
+  .product-filters::-webkit-scrollbar{ display:none; }
+  .filter-btn{ flex:0 0 auto; min-height:44px; padding:9px 12px; }
   .product-count{ align-self:flex-end; }
   .p-card .meta{ padding:15px; }
 
@@ -1307,8 +1347,12 @@ footer{
 
   .cta-band{ padding:72px 18px; }
   .cta-band h2{ font-size:38px; }
-  .cta-form{ align-items:center; }
-  .cta-form input{ min-width:0; }
+  .cta-form{ align-items:stretch; flex-direction:column; border:0; gap:10px; }
+  .cta-form input{
+    width:100%; min-width:0; min-height:46px; padding:0 12px;
+    border:1px solid rgba(250,245,238,.35);
+  }
+  .cta-form button{ width:100%; min-height:46px; border:1px solid var(--gold); }
 
   footer{ padding:48px 18px 26px; }
 }
@@ -1421,19 +1465,23 @@ footer{
     <button class="overlay-close-x" id="mobile-close" aria-label="Kapat">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <div class="mobile-section">
-      <span class="mobile-eyebrow">Şallar</span>
-      <a href="sallar.html#a-plus">A++ Kalite Şallar</a>
-      <a href="sallar.html#pamuk">%100 Pamuklu Şallar</a>
-      <a href="sallar.html#muadil">Muadil Şallar</a>
+    <div class="mobile-section has-submenu">
+      <button class="mobile-section-toggle" type="button" aria-expanded="false">Şallar</button>
+      <div class="mobile-submenu">
+        <a href="sallar.html#a-plus">A++ Kalite Şallar</a>
+        <a href="sallar.html#pamuk">%100 Pamuklu Şallar</a>
+        <a href="sallar.html#muadil">Muadil Şallar</a>
+      </div>
     </div>
-    <div class="mobile-section">
-      <span class="mobile-eyebrow">Giyim</span>
-      <a href="giyim.html#ust">Üst Giyim</a>
-      <a href="giyim.html#alt">Alt Giyim</a>
-      <a href="giyim.html#iclik">İçlik</a>
-      <a href="giyim.html#takim">Takım</a>
-      <a href="giyim.html#elbise">Elbise</a>
+    <div class="mobile-section has-submenu">
+      <button class="mobile-section-toggle" type="button" aria-expanded="false">Giyim</button>
+      <div class="mobile-submenu">
+        <a href="giyim.html#ust">Üst Giyim</a>
+        <a href="giyim.html#alt">Alt Giyim</a>
+        <a href="giyim.html#iclik">İçlik</a>
+        <a href="giyim.html#takim">Takım</a>
+        <a href="giyim.html#elbise">Elbise</a>
+      </div>
     </div>
     <div class="mobile-section">
       <a href="indirim.html" class="mobile-link-strong">İndirim</a>
@@ -1448,11 +1496,14 @@ footer{
   <div class="search-panel">
     <div class="search-row">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <label class="sr-only" for="search-input">Ürün ara</label>
       <input type="text" id="search-input" placeholder="Ne arıyorsun? (şal, abaya, elbise…)" autocomplete="off">
-      <button class="search-close" id="search-close">ESC</button>
+      <button class="search-close" id="search-close" type="button" aria-label="Aramayı kapat">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
     <div class="search-suggest">
-      <span>Şal</span><span>Abaya Takım</span><span>Elbise</span><span>İndirimdekiler</span><span>Yeni Gelenler</span>
+      <button type="button">Şal</button><button type="button">Abaya Takım</button><button type="button">Elbise</button><button type="button">İndirimdekiler</button><button type="button">Yeni Gelenler</button>
     </div>
   </div>
 </div>
@@ -1470,15 +1521,15 @@ footer{
     </div>
 
     <form id="form-login" class="user-form" onsubmit="event.preventDefault();">
-      <div class="user-field"><label>E-posta</label><input type="email" placeholder="ornek@eposta.com" required></div>
-      <div class="user-field"><label>Şifre</label><input type="password" placeholder="••••••••" required></div>
+      <div class="user-field"><label for="login-email">E-posta</label><input id="login-email" type="email" placeholder="ornek@eposta.com" required></div>
+      <div class="user-field"><label for="login-password">Şifre</label><input id="login-password" type="password" placeholder="••••••••" required></div>
       <button class="user-submit" type="submit">Giriş Yap</button>
     </form>
 
     <form id="form-register" class="user-form" style="display:none;" onsubmit="event.preventDefault();">
-      <div class="user-field"><label>Ad Soyad</label><input type="text" placeholder="Adınız Soyadınız" required></div>
-      <div class="user-field"><label>E-posta</label><input type="email" placeholder="ornek@eposta.com" required></div>
-      <div class="user-field"><label>Şifre</label><input type="password" placeholder="••••••••" required></div>
+      <div class="user-field"><label for="register-name">Ad Soyad</label><input id="register-name" type="text" placeholder="Adınız Soyadınız" required></div>
+      <div class="user-field"><label for="register-email">E-posta</label><input id="register-email" type="email" placeholder="ornek@eposta.com" required></div>
+      <div class="user-field"><label for="register-password">Şifre</label><input id="register-password" type="password" placeholder="••••••••" required></div>
       <button class="user-submit" type="submit">Hesap Oluştur</button>
     </form>
   </div>
@@ -1556,36 +1607,36 @@ footer{
         </div>
         <div class="checkout-grid">
           <div class="checkout-field">
-            <label>Ad Soyad</label>
-            <input name="name" type="text" placeholder="Adınız Soyadınız" required>
+            <label for="checkout-name">Ad Soyad</label>
+            <input id="checkout-name" name="name" type="text" placeholder="Adınız Soyadınız" required>
           </div>
           <div class="checkout-field">
-            <label>Telefon</label>
-            <input name="phone" type="tel" placeholder="05xx xxx xx xx" required>
+            <label for="checkout-phone">Telefon</label>
+            <input id="checkout-phone" name="phone" type="tel" placeholder="05xx xxx xx xx" required>
           </div>
           <div class="checkout-field full">
-            <label>E-posta</label>
-            <input name="email" type="email" placeholder="ornek@eposta.com" required>
+            <label for="checkout-email">E-posta</label>
+            <input id="checkout-email" name="email" type="email" placeholder="ornek@eposta.com" required>
           </div>
           <div class="checkout-field full">
-            <label>Teslimat Adresi</label>
-            <textarea name="address" placeholder="Mahalle, cadde, apartman, il/ilçe" required></textarea>
+            <label for="checkout-address">Teslimat Adresi</label>
+            <textarea id="checkout-address" name="address" placeholder="Mahalle, cadde, apartman, il/ilçe" required></textarea>
           </div>
           <div class="checkout-field full">
-            <label>Kart Üzerindeki İsim</label>
-            <input name="cardName" type="text" placeholder="Ad Soyad" required>
+            <label for="checkout-card-name">Kart Üzerindeki İsim</label>
+            <input id="checkout-card-name" name="cardName" type="text" placeholder="Ad Soyad" required>
           </div>
           <div class="checkout-field full">
-            <label>Kart Numarası</label>
-            <input name="cardNumber" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242" required>
+            <label for="checkout-card-number">Kart Numarası</label>
+            <input id="checkout-card-number" name="cardNumber" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242" required>
           </div>
           <div class="checkout-field">
-            <label>Son Kullanma</label>
-            <input name="expiry" inputmode="numeric" maxlength="5" placeholder="AA/YY" required>
+            <label for="checkout-expiry">Son Kullanma</label>
+            <input id="checkout-expiry" name="expiry" inputmode="numeric" maxlength="5" placeholder="AA/YY" required>
           </div>
           <div class="checkout-field">
-            <label>CVV</label>
-            <input name="cvv" inputmode="numeric" maxlength="4" placeholder="123" required>
+            <label for="checkout-cvv">CVV</label>
+            <input id="checkout-cvv" name="cvv" inputmode="numeric" maxlength="4" placeholder="123" required>
           </div>
         </div>
         <div class="payment-note">Kart alanı demo/prototiptir. Gerçek ödeme için iyzico, Stripe veya banka sanal POS entegrasyonu gerekir.</div>
@@ -1663,7 +1714,7 @@ footer{
 
   <div class="collection-feature">
     <a class="collection-hero-card" href="giyim.html#takim" aria-label="Takım koleksiyonunu incele">
-      <img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1500&auto=format&fit=crop" alt="Tesettür giyim koleksiyonu">
+      <img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 60vw" alt="Tesettür giyim koleksiyonu" loading="lazy">
       <div class="collection-copy">
         <span class="label">Atölye Seçkisi</span>
         <h3>Takım, abaya ve elbisede yumuşak bir geçiş.</h3>
@@ -1676,14 +1727,14 @@ footer{
     </a>
     <div class="collection-side">
       <a class="collection-mini-card" href="sallar.html" aria-label="Şal koleksiyonunu incele">
-        <img src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=900&auto=format&fit=crop" alt="Tesettür şal koleksiyonu referansı">
+        <img src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 40vw" alt="Tesettür şal koleksiyonu referansı" loading="lazy">
         <div class="collection-copy">
           <span class="label">Şallar</span>
           <h3>Dokuda sakin lüks</h3>
         </div>
       </a>
       <a class="collection-mini-card" href="indirim.html" aria-label="İndirim koleksiyonunu incele">
-        <img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=900&auto=format&fit=crop" alt="Tesettür indirim seçkisi referansı">
+        <img src="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1673908869716-abb13b862661?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 40vw" alt="Tesettür indirim seçkisi referansı" loading="lazy">
         <div class="collection-copy">
           <span class="label">Sezon Finali</span>
           <h3>İndirimli parçalar</h3>
@@ -1723,9 +1774,9 @@ footer{
     <div class="story-bg" id="story-bg"></div>
     <div class="story-grid">
       <div class="story-visual">
-        <img class="story-img" data-frame="0" src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop" alt="">
-        <img class="story-img" data-frame="1" src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1200&auto=format&fit=crop" alt="">
-        <img class="story-img" data-frame="2" src="https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1200&auto=format&fit=crop" alt="">
+        <img class="story-img" data-frame="0" src="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1601717355137-4d1c9762cd3b?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 50vw" alt="" loading="lazy">
+        <img class="story-img" data-frame="1" src="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1607945432204-89d3cd66bac6?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 50vw" alt="" loading="lazy">
+        <img class="story-img" data-frame="2" src="https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1627359212239-3d82a215af75?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 50vw" alt="" loading="lazy">
       </div>
       <div class="story-text">
         <span class="num" id="story-num">01 — İlham</span>
@@ -1746,9 +1797,9 @@ footer{
     </h2>
   </div>
   <div class="showcase-grid">
-    <div class="showcase-item"><img src="https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=900&auto=format&fit=crop" alt="Tesettür şal detayı"><span class="tag">Şallar</span></div>
-    <div class="showcase-item"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=900&auto=format&fit=crop" alt="Tesettür takım"><span class="tag">Takımlar</span></div>
-    <div class="showcase-item"><img src="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=900&auto=format&fit=crop" alt="Tesettür elbise"><span class="tag">Elbiseler</span></div>
+    <a class="showcase-item" href="sallar.html"><img src="https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1601832823286-f4dff34eebc7?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür şal detayı" loading="lazy"><span class="tag">Şallar</span></a>
+    <a class="showcase-item" href="giyim.html#takim"><img src="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1724412613510-c663f14c7481?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür takım" loading="lazy"><span class="tag">Takımlar</span></a>
+    <a class="showcase-item" href="giyim.html#elbise"><img src="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1200&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=600&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1626386699888-b8865823b279?q=80&w=1200&auto=format&fit=crop 1200w" sizes="(max-width:768px) 100vw, 33vw" alt="Tesettür elbise" loading="lazy"><span class="tag">Elbiseler</span></a>
   </div>
 </section>
 
@@ -1757,7 +1808,8 @@ footer{
   <span class="eyebrow" style="justify-content:center; color:var(--gold);">Aileye Katıl</span>
   <h2 class="font-display" style="margin-top:18px;">Yeni koleksiyondan<br>ilk sen haberdar ol.</h2>
   <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Teşekkürler ✓';">
-    <input type="email" placeholder="E-posta adresin" required>
+    <label class="sr-only" for="newsletter-email">E-posta adresin</label>
+    <input id="newsletter-email" type="email" placeholder="E-posta adresin" required>
     <button type="submit" class="magnetic">Kaydol →</button>
   </form>
 </section>
@@ -1806,6 +1858,8 @@ footer{
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IS_TOUCH = window.matchMedia('(pointer: coarse)').matches;
 const IS_MOBILE = window.innerWidth < 760;
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -1816,8 +1870,13 @@ gsap.registerPlugin(ScrollTrigger);
    senkron çalışsın — farklı zamanlamalardan kaynaklı "jitter" önlenir.
 ===================================================================== */
 let lenis;
-if(!REDUCED_MOTION){
-  lenis = new Lenis({ duration: 1.1, smoothWheel: true, easing: t => 1 - Math.pow(1 - t, 3) });
+if(!REDUCED_MOTION && !IS_IOS){
+  lenis = new Lenis({
+    duration:1.1,
+    smoothWheel:true,
+    smoothTouch:false,
+    easing:t => 1 - Math.pow(1 - t, 3)
+  });
   function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
   requestAnimationFrame(raf);
   lenis.on('scroll', ScrollTrigger.update);
@@ -1952,7 +2011,7 @@ function initClothScene(){
   scene.add(ambient);
 
   clock = new THREE.Clock();
-  animateCloth();
+  renderer.setAnimationLoop(animateCloth);
 
   window.addEventListener('resize', onResize);
 }
@@ -1965,10 +2024,6 @@ function onResize(){
 }
 
 function animateCloth(){
-  requestAnimationFrame(animateCloth);
-  // viewport dışındaysa hesaplama yapma (perf guard)
-  if(!heroVisible) return;
-
   const t = clock.getElapsedTime();
   const pos = clothMesh.geometry.attributes.position;
   const base = clothMesh.userData.basePos;
@@ -2000,6 +2055,10 @@ function animateCloth(){
 let heroVisible = true;
 const heroObserver = new IntersectionObserver((entries)=>{
   heroVisible = entries[0].isIntersecting;
+  const canvas = document.getElementById('cloth-canvas');
+  canvas.style.visibility = heroVisible ? 'visible' : 'hidden';
+  if(!renderer) return;
+  renderer.setAnimationLoop(heroVisible ? animateCloth : null);
 }, { threshold: 0 });
 
 if(!REDUCED_MOTION){
@@ -2079,6 +2138,16 @@ let activeProductId = null;
 let activeSize = '';
 const favorites = new Set(JSON.parse(localStorage.getItem('sila-favorites-v1') || '[]'));
 
+function imageAtWidth(src, width){
+  const url = new URL(src, window.location.href);
+  if(url.hostname.includes('images.unsplash.com')) url.searchParams.set('w', String(width));
+  return url.href;
+}
+
+function responsiveImageSet(src){
+  return `${imageAtWidth(src, 600)} 600w, ${imageAtWidth(src, 1200)} 1200w`;
+}
+
 PRODUCTS.forEach((p, i)=>{
   const card = document.createElement('div');
   card.className = `p-card reveal-clip ${p.size}`;
@@ -2087,8 +2156,8 @@ PRODUCTS.forEach((p, i)=>{
   card.dataset.sale = p.sale ? 'true' : 'false';
   card.innerHTML = `
     <div class="img-stack">
-      <img class="img-a" src="${p.a}" alt="${p.name}" loading="lazy">
-      <img class="img-b" src="${p.b}" alt="${p.name} - detay" loading="lazy">
+      <img class="img-a" src="${imageAtWidth(p.a, 1200)}" srcset="${responsiveImageSet(p.a)}" sizes="(max-width:768px) 100vw, 50vw" alt="${p.name}" loading="lazy">
+      <img class="img-b" src="${imageAtWidth(p.b, 1200)}" srcset="${responsiveImageSet(p.b)}" sizes="(max-width:768px) 100vw, 50vw" alt="${p.name} - detay" loading="lazy">
     </div>
     <span class="badge">${p.badge}</span>
     <button class="add-btn" type="button" aria-label="${p.name} ürününü sepete ekle" data-product-id="${i}">＋</button>
@@ -2113,7 +2182,9 @@ function openProductModal(productId){
   if(!product) return;
   activeProductId = String(productId);
   activeSize = product.sizes.length === 1 ? product.sizes[0] : '';
-  detailImg.src = product.a;
+  detailImg.src = imageAtWidth(product.a, 1200);
+  detailImg.srcset = responsiveImageSet(product.a);
+  detailImg.sizes = '(max-width:768px) 100vw, 50vw';
   detailImg.alt = product.name;
   detailBadge.textContent = product.badge;
   detailCategory.textContent = product.categoryLabel;
@@ -2274,9 +2345,39 @@ window.addEventListener('scroll', ()=>{
   siteNav.classList.toggle('is-scrolled', window.scrollY > 10);
 });
 
+let lockedScrollY = 0;
+let bodyScrollLocked = false;
+
+function hasOpenOverlay(){
+  return Boolean(document.querySelector(
+    '.search-overlay.is-open, .user-overlay.is-open, .cart-overlay.is-open, .product-modal.is-open, .mobile-menu.is-open'
+  ));
+}
+
 function lockScroll(lock){
-  if(lenis){ lock ? lenis.stop() : lenis.start(); }
-  document.body.style.overflow = lock ? 'hidden' : '';
+  if(lock){
+    if(bodyScrollLocked) return;
+    lockedScrollY = window.scrollY;
+    bodyScrollLocked = true;
+    if(lenis) lenis.stop();
+    Object.assign(document.body.style, {
+      overflow:'hidden',
+      position:'fixed',
+      top:`-${lockedScrollY}px`,
+      left:'0',
+      right:'0',
+      width:'100%'
+    });
+    return;
+  }
+
+  if(hasOpenOverlay() || !bodyScrollLocked) return;
+  bodyScrollLocked = false;
+  Object.assign(document.body.style, {
+    overflow:'', position:'', top:'', left:'', right:'', width:''
+  });
+  window.scrollTo(0, lockedScrollY);
+  if(lenis) lenis.start();
 }
 
 /* ---- Mega-menu (kategori dropdown) ---- */
@@ -2305,6 +2406,7 @@ const searchOverlay = document.getElementById('search-overlay');
 const searchInput = document.getElementById('search-input');
 function openSearch(){
   searchOverlay.classList.add('is-open');
+  document.getElementById('user-overlay').classList.remove('is-open');
   lockScroll(true);
   setTimeout(()=> searchInput.focus(), 350);
 }
@@ -2315,13 +2417,17 @@ function closeSearch(){
 document.getElementById('btn-search').addEventListener('click', openSearch);
 document.getElementById('search-close').addEventListener('click', closeSearch);
 searchOverlay.addEventListener('click', e=>{ if(e.target===searchOverlay) closeSearch(); });
-document.querySelectorAll('.search-suggest span').forEach(tag=>{
+document.querySelectorAll('.search-suggest button').forEach(tag=>{
   tag.addEventListener('click', ()=>{ searchInput.value = tag.textContent; searchInput.focus(); });
 });
 
 /* ---- Kullanıcı paneli (giriş / üye ol) ---- */
 const userOverlay = document.getElementById('user-overlay');
-function openUser(){ userOverlay.classList.add('is-open'); lockScroll(true); }
+function openUser(){
+  userOverlay.classList.add('is-open');
+  searchOverlay.classList.remove('is-open');
+  lockScroll(true);
+}
 function closeUser(){ userOverlay.classList.remove('is-open'); lockScroll(false); }
 document.getElementById('btn-user').addEventListener('click', openUser);
 document.getElementById('user-close').addEventListener('click', closeUser);
@@ -2458,7 +2564,7 @@ function renderCart(){
     const row = document.createElement('div');
     row.className = 'cart-item';
     row.innerHTML = `
-      <img src="${product.a}" alt="${product.name}">
+      <img src="${imageAtWidth(product.a, 600)}" srcset="${responsiveImageSet(product.a)}" sizes="86px" alt="${product.name}" loading="lazy">
       <div class="cart-item-main">
         <div class="cart-item-title">
           <span>${product.name}</span>
@@ -2518,7 +2624,9 @@ document.addEventListener('click', e=>{
 document.getElementById('btn-cart').addEventListener('click', ()=> openCart('cart'));
 document.getElementById('cart-close').addEventListener('click', closeCart);
 document.getElementById('detail-close').addEventListener('click', closeProductModal);
-productModal.addEventListener('click', e=>{ if(e.target === productModal) closeProductModal(); });
+productModal.addEventListener('click', e=>{
+  if(e.target === e.currentTarget) closeProductModal();
+});
 detailFavorite.addEventListener('click', ()=>{
   if(activeProductId === null) return;
   if(favorites.has(activeProductId)) favorites.delete(activeProductId);
@@ -2562,10 +2670,38 @@ renderCart();
 /* ---- Mobil menü ---- */
 const mobileMenu = document.getElementById('mobile-menu');
 function openMobile(){ mobileMenu.classList.add('is-open'); lockScroll(true); }
-function closeMobile(){ mobileMenu.classList.remove('is-open'); lockScroll(false); }
+function closeMobile(){
+  mobileMenu.classList.remove('is-open');
+  mobileMenu.querySelectorAll('.mobile-section.is-open').forEach(section=>{
+    section.classList.remove('is-open');
+    section.querySelector('.mobile-section-toggle')?.setAttribute('aria-expanded', 'false');
+  });
+  lockScroll(false);
+}
 document.getElementById('btn-hamburger').addEventListener('click', openMobile);
 document.getElementById('mobile-close').addEventListener('click', closeMobile);
 mobileMenu.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeMobile));
+mobileMenu.querySelectorAll('.mobile-section-toggle').forEach(toggle=>{
+  toggle.addEventListener('click', e=>{
+    e.stopPropagation();
+    const section = toggle.closest('.mobile-section');
+    const willOpen = !section.classList.contains('is-open');
+    mobileMenu.querySelectorAll('.mobile-section.is-open').forEach(openSection=>{
+      openSection.classList.remove('is-open');
+      openSection.querySelector('.mobile-section-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+    section.classList.toggle('is-open', willOpen);
+    toggle.setAttribute('aria-expanded', String(willOpen));
+  });
+});
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.mobile-section.has-submenu')){
+    mobileMenu.querySelectorAll('.mobile-section.is-open').forEach(section=>{
+      section.classList.remove('is-open');
+      section.querySelector('.mobile-section-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+});
 
 /* ---- Sayfa içi kategori geçişleri ---- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
