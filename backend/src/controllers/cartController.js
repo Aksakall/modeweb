@@ -1,7 +1,7 @@
 const carts = new Map();
 
 function cartKey(req) {
-  return req.user?.sub || req.cookies?.guestCartId || 'guest';
+  return req.user.sub;
 }
 
 function getCart(req) {

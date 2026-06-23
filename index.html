@@ -2747,10 +2747,11 @@ async function addToCart(id, variantId, quantity=1){
   if(!product) return;
   const variant=product.variants.find(item=>item.id===variantId);
   if(!variant||variant.stock<1) return;
+  const unitPrice = Number(variant.price ?? product.price);
   cart=await cartService.add({
     productId:product.id, variantId:variant.id, name:product.name, slug:product.slug,
     image:product.thumbnail, color:variant.color, size:variant.size, quantity:Math.min(quantity,variant.stock),
-    unitPrice:variant.price, totalPrice:variant.price*Math.min(quantity,variant.stock), stock:variant.stock
+    unitPrice, totalPrice:unitPrice*Math.min(quantity,variant.stock), stock:variant.stock
   });
   renderCart();
   openCart();

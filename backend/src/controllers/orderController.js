@@ -34,7 +34,7 @@ export async function createOrder(req, res) {
 
 export async function listOrders(req, res) {
   const { page, limit, skip, take } = pagination(req.query);
-  const where = req.user?.sub ? { userId: req.user.sub } : {};
+  const where = { userId: req.user.sub };
   const [items, total] = await prisma.$transaction([
     prisma.order.findMany({ where, orderBy: { createdAt: 'desc' }, skip, take }),
     prisma.order.count({ where })
@@ -44,15 +44,18 @@ export async function listOrders(req, res) {
 
 export async function getOrder(req, res) {
   const order = await prisma.order.findFirst({
-    where: { id: req.params.id, ...(req.user?.sub ? { userId: req.user.sub } : {}) }
+    where: { id: req.params.id, userId: req.user.sub }
   });
   if (!order) throw httpError(404, 'Sipariş bulunamadı.', 'ORDER_NOT_FOUND');
   res.json(orderPublic(order));
 }
 
 export async function cancelOrder(req, res) {
-  const order = await prisma.order.findFirst({ where: { id: req.params.id, ...(req.user?.sub ? { userId: req.user.sub } : {}) } });
+  const order = await prisma.order.findFirst({ where: { id: req.params.id, userId: req.user.sub } });
   if (!order) throw httpError(404, 'Sipariş bulunamadı.', 'ORDER_NOT_FOUND');
+  if (['shipped', 'delivered'].includes(order.status)) {
+    throw httpError(400, 'Kargoya verilen veya teslim edilen sipariş iptal edilemez.', 'ORDER_NOT_CANCELABLE');
+  }
   const updated = await prisma.order.update({ where: { id: order.id }, data: { status: 'cancelled' } });
   res.json(orderPublic(updated));
 }

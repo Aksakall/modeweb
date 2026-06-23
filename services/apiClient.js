@@ -43,7 +43,8 @@ export async function apiRequest(path, options = {}){
   }catch(error){
     const canRefresh = error.status === 401 && !options.skipAuthRefresh && !path.startsWith('/api/auth/login') && !path.startsWith('/api/auth/refresh');
     if(!canRefresh) throw error;
-    await refreshAccessToken();
+    try{ await refreshAccessToken(); }
+    catch(refreshError){ setAccessToken(null); throw refreshError; }
     return requestOnce(path, {...options, skipAuthRefresh:true});
   }
 }
