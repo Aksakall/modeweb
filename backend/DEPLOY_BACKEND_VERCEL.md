@@ -1,66 +1,51 @@
-# Deploy Backend to Vercel
+# Backend Vercel Deploy
 
-## Project setup
+1. Vercel’de yeni proje oluştur.
+2. Aynı GitHub repo seç: `Aksakall/modeweb`
+3. Root Directory: `backend`
+4. Install Command: `npm install`
+5. Build Command: `npm run vercel-build`
+6. Output Directory boş bırakılır.
 
-1. Create a new project in Vercel.
-2. Select the same GitHub repository.
-3. Set Root Directory to:
-
-```txt
-backend
-```
-
-4. Set Build Command to:
-
-```bash
-npm run vercel-build
-```
-
-5. Leave Output Directory empty.
-6. Set Install Command to:
-
-```bash
-npm install
-```
-
-## Environment variables
-
-Add these variables in the Vercel backend project:
-
-- `DATABASE_URL`
-- `JWT_ACCESS_SECRET`
-- `JWT_REFRESH_SECRET`
-- `JWT_ACCESS_EXPIRES_IN`
-- `JWT_REFRESH_EXPIRES_IN`
-- `COOKIE_NAME`
-- `COOKIE_SECURE`
-- `CORS_ORIGIN`
-- `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
-- `ADMIN_FULL_NAME`
-
-Recommended production values:
+## Backend Vercel Environment Variables
 
 ```env
 NODE_ENV=production
 API_BASE_PATH=/api
+DATABASE_URL=postgresql://CANLI_POSTGRES_CONNECTION_STRING
+JWT_ACCESS_SECRET=strong-random-access-secret
+JWT_REFRESH_SECRET=strong-random-refresh-secret
+JWT_ACCESS_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_IN=7d
+COOKIE_NAME=modeweb_refresh_token
 COOKIE_SECURE=true
 CORS_ORIGIN=https://silasarioglu.vercel.app
+ADMIN_EMAIL=admin@silasarioglu.com
+ADMIN_PASSWORD=strong-admin-password
+ADMIN_FULL_NAME=Sıla Sarıoğlu Admin
 ```
 
-## Deploy tests
+## Notlar
 
-After deploy, test:
+- `DATABASE_URL` GitHub’a eklenmez.
+- Localhost `DATABASE_URL` Vercel’de çalışmaz.
+- Canlı PostgreSQL için Neon, Supabase, Vercel Postgres, Prisma Postgres veya Railway kullanılabilir.
+- `DATABASE_URL` `sslmode=require` içermelidir.
+- Env değişkenleri girildikten sonra backend project redeploy yapılmalıdır.
+
+## Deploy sonrası test
 
 ```txt
 https://backend-domain.vercel.app/api/health
 https://backend-domain.vercel.app/api/products
 ```
 
-## Admin seed note
+## Frontend Vercel Environment Variables
 
-The first production deploy needs the admin user to be seeded once.
+```env
+VITE_API_BASE_URL=https://backend-domain.vercel.app
+VITE_APP_ENV=production
+VITE_WHATSAPP_PHONE=05416963726
+```
 
-Run the seed as a separate manual step after the database and environment variables are ready. Be careful about running seed during every Vercel build: the seed uses upsert, but it can update the admin password from `ADMIN_PASSWORD` on each deploy.
-
-For that reason, keep admin seed as a deliberate manual production step unless you intentionally want every deploy to reset the admin password from environment variables.
+Frontend env güncellendikten sonra frontend redeploy yapılmalıdır.
