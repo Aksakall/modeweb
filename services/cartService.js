@@ -9,6 +9,11 @@ const hasItems=data=>Array.isArray(data)||Array.isArray(data?.items)||Array.isAr
 async function mutateRemote(path,options){const data=await apiRequest(path,options);return hasItems(data)?unwrapItems(data):unwrapItems(await apiRequest('/api/cart'));}
 const useLocalCart=()=>usesMockApi||!getAccessToken();
 
+export const guestCartStorage = {
+  read,
+  clear:()=>write([])
+};
+
 export const cartService = {
   get:async()=>useLocalCart() ? read() : unwrapItems(await apiRequest('/api/cart')),
   add:async payload=>{

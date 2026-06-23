@@ -10,14 +10,40 @@ function getCart(req) {
   return carts.get(key);
 }
 
+function mergeItems(cart, items = []) {
+  items.forEach(item => {
+    const existing = cart.find(entry => entry.productId === item.productId && entry.variantId === item.variantId);
+    const quantity = Number(item.quantity || 1);
+
+    if (existing) {
+      const stock = Number(existing.stock || item.stock || Number.MAX_SAFE_INTEGER);
+      existing.quantity = Math.max(1, Math.min(stock, Number(existing.quantity || 0) + quantity));
+      existing.totalPrice = Number(existing.unitPrice || item.unitPrice || 0) * existing.quantity;
+      return;
+    }
+
+    cart.push({
+      ...item,
+      id: item.id || `cart-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      quantity: Math.max(1, quantity)
+    });
+  });
+
+  return cart;
+}
+
 export function listCart(req, res) {
   res.json({ items: getCart(req) });
 }
 
 export function addCartItem(req, res) {
   const cart = getCart(req);
+  if (req.body?.merge && Array.isArray(req.body.items)) {
+    return res.status(200).json({ items: mergeItems(cart, req.body.items) });
+  }
+
   const item = { id: `cart-${Date.now()}`, quantity: 1, ...req.body };
-  cart.push(item);
+  mergeItems(cart, [item]);
   res.status(201).json({ items: cart });
 }
 
