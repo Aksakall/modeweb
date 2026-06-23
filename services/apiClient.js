@@ -1,11 +1,12 @@
 import { env } from '../config/env.js';
 
 let accessToken = null;
+let refreshPromise = null;
 
 export function setAccessToken(token){ accessToken = token || null; }
 export function getAccessToken(){ return accessToken; }
 
-export async function apiRequest(path, options = {}){
+async function requestOnce(path, options = {}){
   if(!env.API_BASE_URL) throw new Error('API_NOT_CONFIGURED');
   const controller = new AbortController();
   const timeout = setTimeout(()=>controller.abort(), options.timeout || 12000);
@@ -26,6 +27,25 @@ export async function apiRequest(path, options = {}){
     }
     return data;
   }finally{ clearTimeout(timeout); }
+}
+
+export async function refreshAccessToken(){
+  if(refreshPromise) return refreshPromise;
+  refreshPromise = requestOnce('/api/auth/refresh',{method:'POST',skipAuthRefresh:true})
+    .then(data=>{ setAccessToken(data?.accessToken); return data; })
+    .finally(()=>{ refreshPromise=null; });
+  return refreshPromise;
+}
+
+export async function apiRequest(path, options = {}){
+  try{
+    return await requestOnce(path, options);
+  }catch(error){
+    const canRefresh = error.status === 401 && !options.skipAuthRefresh && !path.startsWith('/api/auth/login') && !path.startsWith('/api/auth/refresh');
+    if(!canRefresh) throw error;
+    await refreshAccessToken();
+    return requestOnce(path, {...options, skipAuthRefresh:true});
+  }
 }
 
 export function toQuery(params = {}){

@@ -1,6 +1,6 @@
 # Backend integration contract
 
-The storefront reads its base URL from `VITE_API_BASE_URL`, environment from `VITE_APP_ENV`, and WhatsApp phone from `VITE_WHATSAPP_PHONE`. Copy `.env.example` when configuring a deployment. Authentication requests use `credentials: include`; short-lived access tokens are kept in memory. Production authentication should prefer secure, HttpOnly, SameSite cookies.
+The storefront reads its base URL from `VITE_API_BASE_URL`, environment from `VITE_APP_ENV`, and WhatsApp phone from `VITE_WHATSAPP_PHONE`. Copy `.env.example` when configuring a deployment. Authentication requests use `credentials: include`; short-lived access tokens are kept in memory. Production authentication should prefer secure, HttpOnly, SameSite refresh cookies with short-lived access tokens.
 
 ## Response conventions
 
@@ -15,7 +15,7 @@ The storefront reads its base URL from `VITE_API_BASE_URL`, environment from `VI
 
 - Products: `GET /api/products`, `GET /api/products/:slug`
 - Categories: `GET /api/categories`, `GET /api/categories/:slug`
-- Auth: `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`, `POST /api/auth/forgot-password`, `POST /api/auth/reset-password`
+- Auth: `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/refresh`, `POST /api/auth/logout`, `GET /api/auth/me`, `POST /api/auth/forgot-password`, `POST /api/auth/reset-password`
 - Cart: `GET /api/cart`, `POST /api/cart/items`, `PATCH /api/cart/items/:id`, `DELETE /api/cart/items/:id`, `DELETE /api/cart/clear`
 - Favorites: `GET /api/favorites`, `POST /api/favorites`, `DELETE /api/favorites/:productId`
 - Orders: `POST /api/orders`, `GET /api/orders`, `GET /api/orders/:id`, `PATCH /api/orders/:id/cancel`
@@ -30,5 +30,7 @@ The storefront reads its base URL from `VITE_API_BASE_URL`, environment from `VI
 - Admin settings: `GET|PATCH /api/admin/settings`
 
 `PATCH /api/admin/orders/:id/status` accepts `{ "status": "preparing" }`. Allowed values are `new`, `preparing`, `shipped`, `delivered`, and `cancelled`.
+
+`POST /api/auth/refresh` should read the HttpOnly refresh cookie and return `{ "accessToken": "..." }`. The frontend retries one failed `401` request after a successful refresh, then keeps the new access token only in memory.
 
 Product, variant, cart item, order and category payloads are represented directly in `data/mockProducts.js`, `data/mockCategories.js`, `services/cartService.js`, and `checkout.js`.

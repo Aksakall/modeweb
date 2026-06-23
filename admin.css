@@ -61,7 +61,16 @@ body.modal-open{overflow:hidden}
 .admin-form label small{font-size:9px}
 .admin-form input,.admin-form textarea,.admin-form select{width:100%;min-height:44px;border:1px solid var(--line);border-radius:2px;background:white;color:var(--ink);padding:11px}
 .admin-form textarea{min-height:92px;resize:vertical}
-.admin-form label:has(textarea[name="variants"]) textarea{min-height:170px;font-family:monospace;font-size:11px}
+.option-builder{display:grid;gap:12px;padding:16px;border:1px solid var(--line);background:rgba(250,245,238,.45)}
+.option-builder legend{padding:0 8px;color:var(--wine);font:600 11px Inter,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.option-builder p{margin:0;color:var(--taupe);font-size:12px;line-height:1.5}
+.builder-list{display:grid;gap:9px}
+.builder-row{display:grid;grid-template-columns:minmax(140px,1fr) minmax(64px,.35fr) auto;gap:8px;align-items:center}
+.size-row{grid-template-columns:minmax(140px,1fr) auto}
+.variant-row{grid-template-columns:minmax(120px,1fr) minmax(90px,.8fr) minmax(120px,1fr) minmax(84px,.55fr) minmax(100px,.7fr) auto}
+.builder-row input{min-height:42px}
+.admin-form button.compact{justify-self:start;min-height:38px;padding:0 12px;font-size:12px}
+.admin-form button.ghost{min-height:42px;border:1px solid var(--line);background:white;color:var(--danger);padding:0 10px}
 .check-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:14px;border:1px solid var(--line)}
 .check-grid label,.admin-form label.check{display:flex;align-items:center;gap:8px;color:var(--ink)}
 .check-grid input,.admin-form label.check input{width:18px;min-height:18px}
@@ -86,5 +95,5 @@ body.modal-open{overflow:hidden}
 .admin-login-status{min-height:22px;margin-top:12px;color:var(--danger);font-size:12px}
 .admin-config-warning{max-width:520px;padding:18px;border-left:3px solid var(--gold);background:#fff6df;color:var(--wine);line-height:1.6}
 @media(max-width:1050px){.admin-cards{grid-template-columns:repeat(2,1fr)}.check-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:800px){.admin-shell{grid-template-columns:1fr}.admin-shell aside{position:static;height:auto;padding:20px}.admin-shell nav{grid-template-columns:repeat(2,1fr);margin-top:20px}.admin-logout{margin-top:18px}.admin-shell main{padding:20px}.admin-shell main>header>span{display:none}.admin-login{grid-template-columns:1fr}.admin-login-brand{padding:28px}.admin-login section{padding:32px 20px}.form-grid,.order-detail{grid-template-columns:1fr}.admin-form label.full,.admin-form fieldset.full,.order-detail .full{grid-column:1}.admin-summary-grid{grid-template-columns:1fr}.admin-modal{padding:0}.admin-modal-card{max-height:100dvh;height:100dvh}.admin-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.admin-shell{grid-template-columns:1fr}.admin-shell aside{position:static;height:auto;padding:20px}.admin-shell nav{grid-template-columns:repeat(2,1fr);margin-top:20px}.admin-logout{margin-top:18px}.admin-shell main{padding:20px}.admin-shell main>header>span{display:none}.admin-login{grid-template-columns:1fr}.admin-login-brand{padding:28px}.admin-login section{padding:32px 20px}.form-grid,.order-detail{grid-template-columns:1fr}.admin-form label.full,.admin-form fieldset.full,.order-detail .full{grid-column:1}.admin-summary-grid{grid-template-columns:1fr}.admin-modal{padding:0}.admin-modal-card{max-height:100dvh;height:100dvh}.admin-cards{grid-template-columns:1fr 1fr}.builder-row,.variant-row{grid-template-columns:1fr}.admin-form button.ghost{justify-self:start}}
 @media(max-width:460px){.admin-cards{grid-template-columns:1fr}.admin-shell nav{grid-template-columns:1fr 1fr}.check-grid{grid-template-columns:1fr}}
