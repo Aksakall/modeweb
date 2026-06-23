@@ -18,5 +18,8 @@ export const env = Object.freeze({
   JWT_ACCESS_EXPIRES_IN: process.env.JWT_ACCESS_EXPIRES_IN || '15m',
   JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
   COOKIE_NAME: process.env.COOKIE_NAME || 'modeweb_refresh_token',
-  COOKIE_SECURE: String(process.env.COOKIE_SECURE || 'false') === 'true'
+  COOKIE_SECURE: String(process.env.COOKIE_SECURE || 'false') === 'true',
+  ADMIN_EMAIL: process.env.ADMIN_EMAIL || '',
+  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || '',
+  ADMIN_FULL_NAME: process.env.ADMIN_FULL_NAME || 'Sıla Sarıoğlu Admin'
 });
